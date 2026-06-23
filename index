@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BURKAB v5.3 - CANLI ANDON PANELİ</title>
+  <!-- Bootstrap 5 CSS (Şık ve modern kutular için) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0f0f12; /* Fabrika karanlığına uygun koyu arka plan */
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden; /* Sayfanın sağa sola kaymasını engeller */
+    }
+    .andon-header {
+      background-color: #16161a;
+      border-bottom: 4px solid #f5c400; /* BURKAB Kurumsal Sarısı */
+    }
+    .card-andon {
+      background-color: #16161a;
+      border: 1px solid #2a2a35;
+      border-radius: 15px;
+    }
+    .huge-number {
+      font-size: 6rem;
+      font-weight: 800;
+      font-family: monospace;
+    }
+    .efficiency-text {
+      font-size: 7.5rem;
+      font-weight: 900;
+      font-family: monospace;
+    }
+    .progress {
+      background-color: #2a2a35;
+      height: 40px;
+      border-radius: 10px;
+    }
+    .progress-bar {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    .blink-red {
+      animation: blinker 1.5s linear infinite;
+    }
+    @keyframes blinker {
+      50% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ÜST BAR: BAŞLIK VE SAAT -->
+  <div class="andon-header p-3 d-flex justify-content-between align-items-center">
+    <div>
+      <h2 class="m-0 fw-bold">⚙️ BURKAB CANLI ÜRETİM TAKİP PANOSU</h2>
+      <small class="text-muted">v5.3 MES Real-Time Veri Yayını</small>
+    </div>
+    <div class="text-end">
+      <!-- Burası sonra canlanacak, şimdilik şablon -->
+      <h2 id="andonSaat" class="m-0 fw-bold text-warning">17:42:00</h2>
+      <small id="andonTarih" class="text-muted">23.06.2026</small>
+    </div>
+  </div>
+
+  <div class="container-fluid p-4">
+    <div class="row g-4">
+      
+      <!-- SOL BLOK: HEDEF VE GERÇEKLEŞEN SAYILARI -->
+      <div class="col-md-7">
+        
+        <!-- HEDEF SAYAÇ KUTUSU -->
+        <div class="card-andon p-4 mb-4 text-center shadow">
+          <h3 class="text-muted fw-bold text-uppercase">🎯 Vardiya Toplam Hedefi</h3>
+          <div id="toplamHedef" class="huge-number text-info">1500</div>
+        </div>
+
+        <!-- GERÇEKLEŞEN SAYAÇ KUTUSU -->
+        <div class="card-andon p-4 text-center shadow">
+          <h3 class="text-muted fw-bold text-uppercase">📦 Toplam Gerçekleşen Üretim</h3>
+          <div id="toplamGerceklesen" class="huge-number text-success">1250</div>
+        </div>
+
+      </div>
+
+      <!-- SAĞ BLOK: CANLI VERİMLİLİK PERFORMANSI -->
+      <div class="col-md-5">
+        <div class="card-andon p-4 h-100 d-flex flex-column justify-content-center text-center shadow">
+          <h3 class="text-muted fw-bold text-uppercase">📊 Anlık Vardiya Verimliliği</h3>
+          <div id="verimlilikYuzde" class="efficiency-text text-success">%83</div>
+          
+          <!-- Renkli İlerleme Çubuğu -->
+          <div class="progress mt-2">
+            <div id="verimlilikBar" class="progress-bar bg-success" role="progressbar" style="width: 83%">%83</div>
+          </div>
+          
+          <!-- Alt Detay Bilgileri -->
+          <div class="mt-4 row">
+            <div class="col-6 border-end border-secondary">
+              <h5 class="text-muted">Toplam Fire</h5>
+              <h3 id="toplamFire" class="text-danger fw-bold">12 Adet</h3>
+            </div>
+            <div class="col-6">
+              <h5 class="text-muted">Aktif Duruş</h5>
+              <h3 id="aktifDurus" class="text-success fw-bold">YOK</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- EN ALT SIRA: CANLI AKAN ARIZA YAZISI (MARQUEE) -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card-andon p-3 d-flex align-items-center">
+          <span class="badge bg-danger p-2 me-3 blink-red">CANLI AKIŞ</span>
+          <marquee id="arizaKaydirici" behavior="scroll" direction="left" class="text-light fs-5 fw-bold">
+            💚 Tüm hatlar sorunsuz çalışıyor. Aktif arıza kaydı bulunmamaktadır.
+          </marquee>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
