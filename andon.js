@@ -1,4 +1,4 @@
-const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbxGMzLo4NFvVi9gqN7L30VhGSBVrk6-sP-wkelMU5Q/dev";
+const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbwaq-DWawvu5PPOtHHboEMaGNuG0kU_Zjy9SsUOX86O1OlP2mEyxj8fQhM9Sr4eEVAO/exec";
 
 // 1. SAAT MOTORU (Bağımsız çalışır)
 function saatGuncelle() {
