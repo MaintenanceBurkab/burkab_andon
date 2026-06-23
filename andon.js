@@ -10,11 +10,27 @@ function verileriCek() {
 function uiGuncelle(data) {
   if (!data.ok) return;
   const d = data.andonData;
+  
+  // Sayısal alanları güncelle
   document.getElementById("toplamHedef").innerText = d.hedef;
   document.getElementById("toplamGerceklesen").innerText = d.gerceklesen;
-  // Diğer alanları da buraya ekleyeceğiz, şimdilik test için bu yeterli
-  console.log("Veri çekildi:", d);
-}
+  document.getElementById("toplamFire").innerText = d.fire + " Adet";
+  
+  // Verimlilik hesapla ve ekrana bas
+  const verimlilik = d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0;
+  document.getElementById("verimlilikYuzde").innerText = "%" + verimlilik;
+  document.getElementById("verimlilikBar").style.width = verimlilik + "%";
+  document.getElementById("verimlilikBar").innerText = "%" + verimlilik;
 
+  // Aktif duruş/arıza kontrolü
+  if (d.sonArizalar && d.sonArizalar.length > 0) {
+    document.getElementById("aktifDurus").innerText = "VAR!";
+    document.getElementById("aktifDurus").className = "text-danger fw-bold blink-red";
+    
+    // Akan yazıyı (marquee) güncelle
+    const arizaText = d.sonArizalar.map(a => `⚠️ ${a.makine} - ${a.neden} (${a.bildiren})`).join("  |  ");
+    document.getElementById("arizaKaydirici").innerText = arizaText;
+  }
+}
 setInterval(verileriCek, 30000); // Her 30 saniyede bir güncelle
 verileriCek();
