@@ -1,6 +1,9 @@
 // Google Apps Script Web App URL'nizi buraya yazın
 const GAS_ANDON_URL ="https://script.google.com/macros/s/AKfycbxGMzLo4NFvVi9gqN7L30VhGSBVrk6-sP-wkelMU5Q/dev";
 
+document.addEventListener("DOMContentLoaded", () => {
+  setInterval(saatGuncelle, 1000);
+});
 function verileriCek() {
   const script = document.createElement('script');
   script.src = `${GAS_ANDON_URL}?action=getAndonData&callback=uiGuncelle&_t=${Date.now()}`;
@@ -11,6 +14,15 @@ function uiGuncelle(data) {
   if (!data.ok) return;
   const d = data.andonData;
   
+  function saatGuncelle() {
+  const simdi = new Date();
+  // Saati HH:MM:SS formatında yazdır
+  document.getElementById("andonSaat").innerText = simdi.toLocaleTimeString('tr-TR', { 
+    hour: '2-digit', 
+    minute: '2-digit', 
+    second: '2-digit' 
+  });
+}
   // Sayısal alanları güncelle
   document.getElementById("toplamHedef").innerText = d.hedef;
   document.getElementById("toplamGerceklesen").innerText = d.gerceklesen;
