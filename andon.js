@@ -1,5 +1,5 @@
 // Google Apps Script Web App URL'nizi buraya yazın
-const GAS_ANDON_URL = https://script.google.com/macros/s/AKfycbwaq-DWawvu5PPOtHHboEMaGNuG0kU_Zjy9SsUOX86O1OlP2mEyxj8fQhM9Sr4eEVAO/exec;
+const GAS_ANDON_URL ="https://script.google.com/macros/s/AKfycbwaq-DWawvu5PPOtHHboEMaGNuG0kU_Zjy9SsUOX86O1OlP2mEyxj8fQhM9Sr4eEVAO/exec";
 
 function verileriCek() {
   const script = document.createElement('script');
