@@ -28,7 +28,6 @@ function uiGuncelle(data) {
   const verimlilik = d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0;
   document.getElementById("verimlilikYuzde").innerText = "%" + verimlilik;
   document.getElementById("verimlilikBar").style.width = verimlilik + "%";
-  document.getElementById("verimlilikBar").innerText = "%" + verimlilik;
 
   if (d.sonArizalar && d.sonArizalar.length > 0) {
     document.getElementById("aktifDurus").innerText = "VAR!";
