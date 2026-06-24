@@ -8,56 +8,54 @@
   <style>
     body { background-color: #0f0f12; color: #ffffff; font-family: 'Segoe UI', sans-serif; overflow: hidden; height: 100vh; }
     .card-andon { background-color: #16161a; border: 2px solid #2a2a35; border-radius: 20px; }
-    .huge-number { font-size: 8rem; font-weight: 900; font-family: monospace; }
-    .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; height: 75vh; padding: 20px; }
+    .huge-number { font-size: 7rem; font-weight: 900; font-family: monospace; }
+    
+    /* İŞTE SAĞA VE SOLA YASLAMA KOMUTU */
+    .header-container {
+      display: flex;
+      justify-content: space-between; /* Tarihi sola, saati sağa iter */
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 3px solid #f5c400;
+    }
   </style>
 </head>
-<body class="p-4">
+<body class="p-0">
 
-  <div class="d-flex justify-content-between align-items-center mb-4 px-3">
+  <div class="header-container">
     <div class="text-start">
-      <h1 id="andonTarih" style="color: #f5c400; font-size: 4rem; font-family: monospace;">24.06.2026</h1>
-      <small class="text-muted text-uppercase fw-bold">Tarih</small>
+      <h1 id="andonTarih" style="color: #f5c400; font-size: 4rem; font-family: monospace; margin: 0;">24.06.2026</h1>
     </div>
     <div class="text-end">
-      <h1 id="andonSaat" style="color: #f5c400; font-size: 4rem; font-family: monospace;">00:00:00</h1>
-      <small class="text-muted text-uppercase fw-bold">Saat</small>
+      <h1 id="andonSaat" style="color: #f5c400; font-size: 4rem; font-family: monospace; margin: 0;">00:00:00</h1>
     </div>
   </div>
 
-  <div class="main-grid">
-    <div class="d-flex flex-column gap-3">
-      <div class="card-andon p-5 flex-fill text-center d-flex flex-column justify-content-center">
-        <h3 class="text-muted text-uppercase">🎯 Vardiya Hedefi</h3>
-        <div id="toplamHedef" class="huge-number text-info">0</div>
-      </div>
-      <div class="card-andon p-5 flex-fill text-center d-flex flex-column justify-content-center">
-        <h3 class="text-muted text-uppercase">📦 Gerçekleşen</h3>
-        <div id="toplamGerceklesen" class="huge-number text-success">0</div>
-      </div>
-    </div>
-
-    <div class="card-andon p-5 d-flex flex-column justify-content-center text-center">
-      <h3 class="text-muted text-uppercase">📊 Anlık Verimlilik</h3>
-      <div id="verimlilikYuzde" class="huge-number" style="font-size: 10rem; color: #198754;">%0</div>
-      <div class="progress mt-4" style="height: 50px;"><div id="verimlilikBar" class="progress-bar bg-success" style="width: 0%"></div></div>
-      
-      <div class="row mt-5">
-        <div class="col-6">
-          <h4 class="text-muted">Toplam Fire</h4>
-          <h2 id="toplamFire" class="text-danger fw-bold">0 Adet</h2>
+  <div class="container-fluid p-4">
+    <div class="row g-4">
+      <div class="col-6">
+        <div class="card-andon p-4 mb-4 text-center">
+            <h3 class="text-muted text-uppercase">🎯 Vardiya Hedefi</h3>
+            <div id="toplamHedef" class="huge-number text-info">0</div>
         </div>
-        <div class="col-6">
-          <h4 class="text-muted">Aktif Duruş</h4>
-          <h2 id="aktifDurus" class="text-success fw-bold">YOK</h2>
+        <div class="card-andon p-4 text-center">
+            <h3 class="text-muted text-uppercase">📦 Gerçekleşen</h3>
+            <div id="toplamGerceklesen" class="huge-number text-success">0</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card-andon p-4 h-100 text-center">
+            <h3 class="text-muted text-uppercase">📊 Anlık Verimlilik</h3>
+            <div id="verimlilikYuzde" class="huge-number" style="font-size: 9rem; color: #198754;">%0</div>
+            <div class="progress mt-3" style="height: 40px;"><div id="verimlilikBar" class="progress-bar bg-success" style="width: 0%"></div></div>
+            <div class="row mt-5">
+                <div class="col-6"><h5>Toplam Fire</h5><h2 id="toplamFire" class="text-danger fw-bold">0 Adet</h2></div>
+                <div class="col-6"><h5>Aktif Duruş</h5><h2 id="aktifDurus" class="text-success fw-bold">YOK</h2></div>
+            </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="card-andon p-3 d-flex align-items-center mx-3">
-    <span class="badge bg-danger p-3 me-4">CANLI AKIŞ</span>
-    <marquee id="arizaKaydirici" class="fs-2 fw-bold text-light">Sistem beklemede...</marquee>
   </div>
 
 <script src="andon.js"></script>
