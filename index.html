@@ -70,5 +70,36 @@
   </div>
 
 <script src="andon.js"></script>
+  <!-- Kayan Duyuru Alanı -->
+<div class="marquee-container">
+    <div id="duyuruAlani" class="marquee-content">
+        <!-- Duyurular buraya JS ile gelecek -->
+        Duyurular yükleniyor...
+    </div>
+</div>
+
+<style>
+    .marquee-container {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #f5c400; /* BURKAB sarısı */
+        color: #0f0f12;
+        padding: 10px 0;
+        overflow: hidden;
+        white-space: nowrap;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    .marquee-content {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(-100%, 0); }
+    }
+</style>
 </body>
 </html>
