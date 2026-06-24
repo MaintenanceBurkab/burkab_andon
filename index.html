@@ -7,9 +7,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.min.css" rel="stylesheet">
   <style>
     body { background-color: #0f0f12; color: #ffffff; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
-    .card-andon { background-color: #16161a; border: 1px solid #2a2a35; border-radius: 15px; }
-    .huge-number { font-size: 5rem; font-weight: 800; font-family: monospace; }
-    .efficiency-text { font-size: 6rem; font-weight: 900; font-family: monospace; }
+    .card-andon { background-color: #16161a; border: 1px solid #2a2a35; border-radius: 15px; height: 100%; }
+    .huge-number { font-size: 6rem; font-weight: 800; font-family: monospace; }
+    .efficiency-text { font-size: 7rem; font-weight: 900; font-family: monospace; color: #198754; }
     .progress { background-color: #2a2a35; height: 40px; border-radius: 10px; }
     .blink-red { animation: blinker 1.5s linear infinite; }
     @keyframes blinker { 50% { opacity: 0.3; } }
@@ -17,52 +17,52 @@
 </head>
 <body class="p-4">
 
-  <div class="row align-items-center mb-4">
-    <div class="col-md-8">
-      <h2 class="fw-bold">⚙️ BURKAB CANLI ÜRETİM TAKİP PANOSU</h2>
-      <small class="text-muted">v5.3 MES Real-Time Veri Yayını</small>
+  <div class="d-flex justify-content-between align-items-center mb-4 p-3" style="border-bottom: 2px solid #2a2a35;">
+    <div class="text-start">
+      <h2 id="andonTarih" class="m-0" style="color: #f5c400; font-size: 3rem; font-family: monospace;">24.06.2026</h2>
+      <small class="text-muted text-uppercase">Tarih</small>
     </div>
-    <div class="col-md-4 text-end">
-      <h2 id="andonSaat" class="m-0" style="font-size: 3rem; color: #f5c400;">00:00:00</h2>
-      <small id="andonTarih" class="text-muted fs-5">24.06.2026</small>
+    <div class="text-end">
+      <h2 id="andonSaat" class="m-0" style="color: #f5c400; font-size: 3rem; font-family: monospace;">00:00:00</h2>
+      <small class="text-muted text-uppercase">Saat</small>
     </div>
   </div>
 
-  <div class="row g-4">
-    <div class="col-md-6">
-      <div class="card-andon p-4 mb-4 text-center shadow">
-        <h3 class="text-muted fw-bold text-uppercase">🎯 Hedef</h3>
+  <div class="row g-4" style="height: 60vh;">
+    <div class="col-md-6 d-flex flex-column gap-4">
+      <div class="card-andon p-4 text-center d-flex flex-column justify-content-center">
+        <h3 class="text-muted fw-bold text-uppercase">🎯 Vardiya Hedefi</h3>
         <div id="toplamHedef" class="huge-number text-info">0</div>
       </div>
-      <div class="card-andon p-4 text-center shadow">
-        <h3 class="text-muted fw-bold text-uppercase">📦 Gerçekleşen</h3>
+      <div class="card-andon p-4 text-center d-flex flex-column justify-content-center">
+        <h3 class="text-muted fw-bold text-uppercase">📦 Toplam Gerçekleşen</h3>
         <div id="toplamGerceklesen" class="huge-number text-success">0</div>
       </div>
     </div>
 
     <div class="col-md-6">
-      <div class="card-andon p-4 h-100 d-flex flex-column justify-content-center text-center shadow">
+      <div class="card-andon p-4 d-flex flex-column justify-content-center text-center">
         <h3 class="text-muted fw-bold text-uppercase">📊 Anlık Verimlilik</h3>
-        <div id="verimlilikYuzde" class="efficiency-text text-success">%0</div>
-        <div class="progress mt-2"><div id="verimlilikBar" class="progress-bar bg-success" style="width: 0%"></div></div>
+        <div id="verimlilikYuzde" class="efficiency-text">%0</div>
+        <div class="progress mt-3 mb-4"><div id="verimlilikBar" class="progress-bar bg-success" style="width: 0%"></div></div>
         
-        <div class="mt-5 row">
-          <div class="col-6"><h5 class="text-muted">Toplam Fire</h5><h3 id="toplamFire" class="text-danger fw-bold">0 Adet</h3></div>
-          <div class="col-6"><h5 class="text-muted">Aktif Duruş</h5><h3 id="aktifDurus" class="text-success fw-bold">YOK</h3></div>
+        <div class="row mt-4">
+          <div class="col-6 border-end border-secondary">
+            <h5 class="text-muted">Toplam Fire</h5>
+            <h3 id="toplamFire" class="text-danger fw-bold fs-2">0 Adet</h3>
+          </div>
+          <div class="col-6">
+            <h5 class="text-muted">Aktif Duruş</h5>
+            <h3 id="aktifDurus" class="text-success fw-bold fs-2">YOK</h3>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card-andon p-3 d-flex align-items-center">
-        <span class="badge bg-danger p-2 me-3 blink-red">CANLI AKIŞ</span>
-        <marquee id="arizaKaydirici" behavior="scroll" direction="left" class="text-light fs-5 fw-bold">
-          💚 Tüm hatlar sorunsuz çalışıyor.
-        </marquee>
-      </div>
-    </div>
+  <div class="mt-4 card-andon p-3 d-flex align-items-center">
+    <span class="badge bg-danger me-3 p-2">CANLI AKIŞ</span>
+    <marquee id="arizaKaydirici" class="text-light fs-4 fw-bold">Sistem beklemede...</marquee>
   </div>
 
 <script src="andon.js"></script>
