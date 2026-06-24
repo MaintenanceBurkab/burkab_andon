@@ -10,10 +10,9 @@
     .card-andon { background-color: #16161a; border: 2px solid #2a2a35; border-radius: 20px; }
     .huge-number { font-size: 7rem; font-weight: 900; font-family: monospace; }
     
-    /* İŞTE SAĞA VE SOLA YASLAMA KOMUTU */
     .header-container {
       display: flex;
-      justify-content: space-between; /* Tarihi sola, saati sağa iter */
+      justify-content: space-between;
       align-items: center;
       padding: 20px 40px;
       border-bottom: 3px solid #f5c400;
@@ -23,11 +22,16 @@
 <body class="p-0">
 
   <div class="header-container">
-    <div class="text-start">
-      <h1 id="andonTarih" style="color: #f5c400; font-size: 4rem; font-family: monospace; margin: 0;">24.06.2026</h1>
+    <div class="text-start" style="width: 250px;">
+      <h1 id="andonTarih" style="color: #f5c400; font-size: 3rem; font-family: monospace; margin: 0;">24.06.2026</h1>
     </div>
-    <div class="text-end">
-      <h1 id="andonSaat" style="color: #f5c400; font-size: 4rem; font-family: monospace; margin: 0;">00:00:00</h1>
+
+    <div class="text-center">
+      <h2 class="text-white fw-bold" style="letter-spacing: 2px;">BURKAB A.Ş. ANLIK ÜRETİM VERİLERİ</h2>
+    </div>
+
+    <div class="text-end" style="width: 250px;">
+      <h1 id="andonSaat" style="color: #f5c400; font-size: 3rem; font-family: monospace; margin: 0;">00:00:00</h1>
     </div>
   </div>
 
@@ -47,7 +51,7 @@
       <div class="col-6">
         <div class="card-andon p-4 h-100 text-center">
             <h3 class="text-muted text-uppercase">📊 Anlık Verimlilik</h3>
-            <div id="verimlilikYuzde" class="huge-number" style="font-size: 9rem; color: #198754;">%0</div>
+            <div id="verimlilikYuzde" class="huge-number" style="font-size: 8rem; color: #198754;">%0</div>
             <div class="progress mt-3" style="height: 40px;"><div id="verimlilikBar" class="progress-bar bg-success" style="width: 0%"></div></div>
             <div class="row mt-5">
                 <div class="col-6"><h5>Toplam Fire</h5><h2 id="toplamFire" class="text-danger fw-bold">0 Adet</h2></div>
