@@ -17,7 +17,7 @@ function verileriCek() {
 }
 async function duyurulariGetir() {
     // Kendi Google Sheets CSV yayınlama linkini buraya yapıştır
-    const sheetUrl =https://docs.google.com/spreadsheets/d/e/2PACX-1vRZyesQIw-Q0fGlFWyQOx8Ce85D373Nx2YWxEMTO1wzosd-1lLOtC_strxvT94etACZmnMRb-KHkyhm/pub?gid=1868540949&single=true&output=csv;
+    const sheetUrl ="https://docs.google.com/spreadsheets/d/e/2PACX-1vRZyesQIw-Q0fGlFWyQOx8Ce85D373Nx2YWxEMTO1wzosd-1lLOtC_strxvT94etACZmnMRb-KHkyhm/pub?gid=1868540949&single=true&output=csv";
     
     try {
         const response = await fetch(sheetUrl);
