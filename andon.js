@@ -148,6 +148,8 @@ function uiGuncelle(data) {
           <span class="durus-makine">${a.makine || '-'}</span>
           <span class="durus-ayrac">—</span>
           <span class="durus-neden">${a.neden || '-'}</span>
+          <span class="durus-ayrac">—</span>
+          <span class="durus-projeno">${a.projeno || '-'}</span>
           <span class="durus-saat">${a.saat || ''}</span>
         </div>`
       ).join('');
