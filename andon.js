@@ -130,8 +130,7 @@ function uiGuncelle(data) {
   // ── Duruşlar ──────────────────────────────────────────
   const arizalar = d.sonArizalar || [];
 
-  if (arizalar.length > 0) {
-    // Aktif duruş var
+ if (arizalar.length > 0) {
     setText("aktifDurus", "VAR!");
     const aktifEl = el("aktifDurus");
     if (aktifEl) {
@@ -139,24 +138,22 @@ function uiGuncelle(data) {
       aktifEl.style.animation = "yanipSonme 0.8s infinite";
     }
 
-    // Duruş listesini güncelle
     const durusListeEl = el("durusListesi");
-    if (d.sonArizalar && d.sonArizalar.length > 0) {
-    // ... diğer kodlar ...
-    document.getElementById("durusListesi").innerHTML = d.sonArizalar.map(a => `
-      <div class="durus-satir">
-        <span class="durus-ikon">⚠️</span>
-        <span class="durus-makine">${a.makine || '-'}</span>
-        <span class="durus-ayrac">—</span>
-        <span class="durus-neden">${a.neden || '-'}</span>
-        <span style="background:#f5c400; padding:2px 6px; border-radius:4px; color:#000; font-weight:bold;">${a.projeNo || '-'}</span>
-        <span class="durus-saat" style="margin-left:auto;">${a.saat || ''}</span>
-      </div>
-    `).join('');
-}
+    if (durusListeEl) {
+      durusListeEl.innerHTML = arizalar.map(a => `
+        <div class="durus-satir">
+          <span class="durus-ikon">⚠️</span>
+          <span class="durus-makine">${a.makine || '-'}</span>
+          <span class="durus-ayrac">—</span>
+          <span class="durus-neden">${a.neden || '-'}</span>
+          <span style="background:#f5c400; padding:2px 6px; border-radius:4px; color:#000; font-weight:bold;">${a.projeNo || '-'}</span>
+          <span class="durus-saat" style="margin-left:auto;">${a.saat || ''}</span>
+        </div>
+      `).join('');
       durusListeEl.style.display = 'block';
       el('durusPaneli')?.classList.add('aktif-durus');
     }
+}
 
     // Alt kayan yazıya da yaz (duyuruAlani varsa)
     const duyuruEl = el("duyuruAlani");
