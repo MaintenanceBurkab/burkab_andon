@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BURKAB A.Ş — CANLI ANDON PANELİ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* ── RESET & TEMEL ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #0a0a0e;
+      color: #ffffff;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 36px;
+      background: linear-gradient(180deg, #0f0f14 0%, #13131a 100%);
+      border-bottom: 3px solid #f5c400;
+      flex-shrink: 0;
+    }
+    .header-sol {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .header-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #f5c400;
+      letter-spacing: 4px;
+    }
+    .header-alt {
+      font-size: 0.7rem;
+      color: #666;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .header-orta {
+      text-align: center;
+    }
+    .header-orta h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #fff;
+      margin: 0;
+    }
+    .header-orta small {
+      font-size: 0.7rem;
+      color: #555;
+      letter-spacing: 2px;
+    }
+    .header-sag { text-align: right; }
+    #andonSaat {
+      font-size: 2.6rem;
+      font-weight: 900;
+      font-family: monospace;
+      color: #f5c400;
+      line-height: 1;
+      display: block;
+    }
+    #andonTarih {
+      font-size: 0.85rem;
+      color: #888;
+      font-family: monospace;
+      margin-top: 3px;
+    }
+
+    /* ── BAĞLANTI UYARI ─────────────────────────────────────── */
+    #baglantiDurum {
+      display: none;
+      background: #1a1200;
+      border-bottom: 1px solid #e65100;
+      color: #ff9800;
+      text-align: center;
+      padding: 5px 16px;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    /* ── ANA ALAN ───────────────────────────────────────────── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px 24px 0 24px;
+      overflow: hidden;
+    }
+
+    /* ── ÜRETİM METRİKLERİ (ÜST) ───────────────────────────── */
+    .metrik-panel {
+      display: flex;
+      background: #13131a;
+      border: 2px solid #222230;
+      border-radius: 16px;
+      flex-shrink: 0;
+    }
+    .metrik-kutu {
+      flex: 1;
+      padding: 16px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .metrik-kutu + .metrik-kutu { border-left: 1px solid #222230; }
+    .metrik-etiket {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #666;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .metrik-deger {
+      font-size: 4rem;
+      font-weight: 900;
+      font-family: monospace;
+      line-height: 1;
+    }
+    /* Verimlilik progress bar */
+    .bar-wrap {
+      width: 85%;
+      max-width: 260px;
+      height: 8px;
+      background: #222;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    /* ✅ ID='verimlilikBar' — andon.js bu ID'ye yazar */
+    #verimlilikBar {
+      height: 100%;
+      width: 0%;
+      border-radius: 4px;
+      transition: width 0.8s ease, background-color 0.4s ease;
+      background: #4caf50;
+    }
+
+    /* ── ALT PANEL: FIRE + DURUŞLAR ─────────────────────────── */
+    .alt-panel {
+      display: flex;
+      gap: 12px;
+      flex: 1;
+      overflow: hidden;
+      padding-bottom: 52px; /* kayan yazı için boşluk */
+      min-height: 0;
+    }
+
+    /* Fire kartı */
+    .fire-kart {
+      background: #13131a;
+      border: 2px solid #222230;
+      border-radius: 16px;
+      flex: 0 0 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      text-align: center;
+      gap: 8px;
+    }
+    .fire-etiket {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #666;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    #toplamFire {
+      font-size: 2.8rem;
+      font-weight: 900;
+      font-family: monospace;
+      color: #f44336;
+      line-height: 1;
+    }
+
+    /* ✅ DURUŞ PANELİ — id='durusPaneli', id='durusListesi' */
+    .durus-kart {
+      background: #13131a;
+      border: 2px solid #222230;
+      border-radius: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .durus-kart-baslik {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      border-bottom: 1px solid #222230;
+      flex-shrink: 0;
+    }
+    .durus-kart-baslik-metin {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #666;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    #aktifDurus {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #4caf50;
+    }
+    /* ✅ id='durusListesi' — andon.js duruş satırlarını buraya yazar */
+    #durusListesi {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    #durusListesi::-webkit-scrollbar { width: 3px; }
+    #durusListesi::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    /* Duruş satırı stili — andon.js tarafından oluşturulan .durus-satir */
+    .durus-satir {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #1a1a24;
+      border-radius: 10px;
+      border-left: 4px solid #e65100;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .durus-ikon  { font-size: 1.1rem; flex-shrink: 0; }
+    .durus-proje { font-weight: 800; color: #f5c400; font-family: monospace; white-space: nowrap; font-size: 0.9rem; }
+    .durus-makine{ font-weight: 800; color: #fff; white-space: nowrap; }
+    .durus-ayrac { color: #444; }
+    .durus-neden { flex: 1; color: #ddd; }
+    .durus-sure  { font-size: 0.8rem; color: #e65100; font-family: monospace; white-space: nowrap; font-weight: 700; }
+    .durus-saat  { font-size: 0.8rem; color: #666; font-family: monospace; white-space: nowrap; }
+
+    #sonGuncelleme {
+      font-size: 0.7rem;
+      color: #444;
+      padding: 5px 14px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ── KAYAN DUYURU ───────────────────────────────────────── */
+    .duyuru-ust {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 48px;
+      background: #f5c400;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+    .duyuru-etiket {
+      background: #1a1a1a;
+      color: #f5c400;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      padding: 0 16px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .duyuru-kaydir {
+      overflow: hidden;
+      flex: 1;
+    }
+    /* ✅ id='duyuruAlani' — andon.js kayan yazıyı buraya yazar */
+    #duyuruAlani {
+      display: inline-block;
+      white-space: nowrap;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1a1a1a;
+      padding-left: 100%;
+      animation: kayan 35s linear infinite;
+    }
+    @keyframes kayan {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ── ANİMASYON ──────────────────────────────────────────── */
+    @keyframes yanipSonme {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-sol">
+      <span class="header-logo">BURKAB A.Ş.</span>
+      <span class="header-alt">Üretim Takip Sistemi v5.3</span>
+    </div>
+    <div class="header-orta">
+      <h2>CANLI ÜRETİM ANDON PANELİ</h2>
+      <small>OTOMATİK YENİLENİR — 30 SANİYEDE BİR</small>
+    </div>
+    <div class="header-sag">
+      <span id="andonSaat">00:00:00</span>
+      <span id="andonTarih">-- --- ----</span>
+    </div>
+  </header>
+
+  <!-- ── BAĞLANTI UYARI ────────────────────────────────────── -->
+  <div id="baglantiDurum"></div>
+
+  <!-- ── ANA ALAN ──────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Üretim metrikleri -->
+    <div class="metrik-panel">
+
+      <div class="metrik-kutu">
+        <span class="metrik-etiket">🎯 Vardiya Hedefi</span>
+        <span id="toplamHedef" class="metrik-deger" style="color:#29b6f6;">—</span>
+      </div>
+
+      <div class="metrik-kutu">
+        <span class="metrik-etiket">📦 Gerçekleşen</span>
+        <span id="toplamGerceklesen" class="metrik-deger" style="color:#fff;">—</span>
+      </div>
+
+      <div class="metrik-kutu" style="flex:1.5;">
+        <span class="metrik-etiket">📊 Anlık Verimlilik</span>
+        <!-- ✅ id='verimlilikYuzde' -->
+        <span id="verimlilikYuzde" class="metrik-deger" style="color:#4caf50;">%—</span>
+        <!-- ✅ id='verimlilikBar' — andon.js bu ID'nin width'ini ayarlıyor -->
+        <div class="bar-wrap">
+          <div id="verimlilikBar"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Alt panel -->
+    <div class="alt-panel">
+
+      <!-- Fire -->
+      <div class="fire-kart">
+        <span class="fire-etiket">🔥 Toplam Fire</span>
+        <!-- ✅ id='toplamFire' -->
+        <span id="toplamFire">— Adet</span>
+        <span style="font-size:0.7rem;color:#555;margin-top:4px;">Bugün</span>
+      </div>
+
+      <!-- ✅ DURUŞ PANELİ: id='durusPaneli' -->
+      <div class="durus-kart" id="durusPaneli">
+        <div class="durus-kart-baslik">
+          <span class="durus-kart-baslik-metin">⏱️ Bugünkü Duruşlar</span>
+          <!-- ✅ id='aktifDurus' — andon.js buraya "VAR!" veya "YOK ✓" yazar -->
+          <span id="aktifDurus">—</span>
+        </div>
+        <!-- ✅ id='durusListesi' — andon.js .durus-satir HTML'lerini buraya ekler -->
+        <div id="durusListesi">
+          <div class="durus-satir" style="color:#555;border-left-color:#333;">
+            ⏳ Veri bekleniyor...
+          </div>
+        </div>
+        <!-- Son güncelleme zamanı -->
+        <div id="sonGuncelleme">—</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── KAYAN DUYURU ───────────────────────────────────────── -->
+  <div class="duyuru-ust">
+    <div class="duyuru-etiket">🔔 DUYURU</div>
+    <div class="duyuru-kaydir">
+      <!-- ✅ id='duyuruAlani' — andon.js buraya yazar -->
+      <span id="duyuruAlani">BURKAB A.Ş. — Üretim Takip Sistemi yükleniyor...</span>
+    </div>
+  </div>
+
+  <!-- ✅ AYNI KLASÖRDE andon.js OLMALI -->
+  <script src="andon.js"></script>
+
+</body>
+</html>
