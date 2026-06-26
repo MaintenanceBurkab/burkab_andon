@@ -148,7 +148,7 @@ function uiGuncelle(data) {
           <span class="durus-makine">${a.makine || '-'}</span>
           <span class="durus-ayrac">—</span>
           <span class="durus-neden">${a.neden || '-'}</span>
-          <span class="durus-projeno">${a.projeno || '-'}</span>
+          <span class="durus-projeNo">${a.projeNo || '-'}</span>
           <span class="durus-saat">${a.saat || ''}</span>
         </div>`
       ).join('');
@@ -169,7 +169,7 @@ function uiGuncelle(data) {
     // Eski arizaKaydirici (geriye dönük uyumluluk, null-safe)
     const kaydirici = el("arizaKaydirici");
     if (kaydirici) {
-      kaydirici.innerText = arizalar.map(a => `⚠️ ${a.makine} - ${a.neden} - ${a.projeno}`).join(" | ");
+      kaydirici.innerText = arizalar.map(a => `⚠️ ${a.makine} - ${a.neden} - ${a.projeNo}`).join(" | ");
     }
 
   } else {
