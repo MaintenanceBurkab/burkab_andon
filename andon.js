@@ -31,9 +31,9 @@ function verimlilikSesiCal(verimlilik) {
     if (verimlilik >= esik.seviye && sonVerimlilikSeviyesi < esik.seviye) {
       console.log(`🎉 Alkış sesi çalındı! Seviye: ${esik.isim} (%${verimlilik})`);
 
-      // === KULLANACAĞIMIZ ALKİŞ SESİ ===
-      const audio = new Audio("freesound_community-claps-44774.mp3");
-      audio.volume = 0.8;
+      // === DAHA STABİL SES ===
+      const audio = new Audio("https://assets.mixkit.co/sfx/preview/3/3.mp3");
+      audio.volume = 0.7;
       audio.play().catch(e => console.warn("Ses çalınamadı:", e));
 
       sonVerimlilikSeviyesi = verimlilik;
