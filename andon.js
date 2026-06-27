@@ -31,8 +31,9 @@ function verimlilikSesiCal(verimlilik) {
     if (verimlilik >= esik.seviye && sonVerimlilikSeviyesi < esik.seviye) {
       console.log(`🎉 Alkış sesi çalındı! Seviye: ${esik.isim} (%${verimlilik})`);
 
-      const audio = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3");
-      audio.volume = 0.6;
+      // === GERÇEK ALKİŞ SESİ ===
+      const audio = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_5b0e0e0e2e.mp3");
+      audio.volume = 0.7;
       audio.play().catch(e => console.warn("Ses çalınamadı:", e));
 
       sonVerimlilikSeviyesi = verimlilik;
