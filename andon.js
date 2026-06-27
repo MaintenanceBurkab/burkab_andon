@@ -86,7 +86,8 @@ if (bar) {
   bar.style.width = Math.min(verimlilik, 100) + "%";
   bar.style.background = verimlilik >= 90 ? "#4caf50" : verimlilik >= 70 ? "#ffc107" : "#f44336";
 }
-
+// Test için (sonra sil)
+verimlilikSesiCal(96);
 // === ALKİŞ SESİ (Verimlilik eşiği geçtiyse çal) ===
 verimlilikSesiCal(verimlilik);
   // Duruşlar
