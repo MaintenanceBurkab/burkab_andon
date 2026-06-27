@@ -65,19 +65,21 @@ function uiGuncelle(data) {
     setText("aktifDurus", `VAR! (${arizalar.length})`);
     el("aktifDurus").style.color = '#f44336';
 
-    if (durusListeEl) {
-      durusListeEl.innerHTML = arizalar.map(a => `
-        <div class="durus-satir">
-          <span class="durus-ikon">⚠️</span>
-          <span class="durus-proje">${a.projeNo || '-'}</span>
-          <span class="durus-ayrac">—</span>
-          <span class="durus-makine">${a.makine}</span>
-          <span class="durus-ayrac">—</span>
-          <span class="durus-neden">${a.neden}</span>
-          <span class="durus-saat">${a.saat}</span>
-        </div>
-      `).join('');
-    }
+   durusListeEl.innerHTML = arizalar.map(a => {
+  const projeMakine = a.projeNo && a.projeNo !== '-' 
+    ? `${a.projeNo} - ${a.makine}` 
+    : a.makine;
+
+  return `
+    <div class="durus-satir">
+      <span class="durus-ikon">⚠️</span>
+      <span class="durus-proje-makine">${projeMakine}</span>
+      <span class="durus-ayrac">—</span>
+      <span class="durus-neden">${a.neden}</span>
+      <span class="durus-saat">${a.saat}</span>
+    </div>
+  `;
+}).join('');
   } else {
     setText("aktifDurus", "YOK ✓");
     el("aktifDurus").style.color = '#4caf50';
