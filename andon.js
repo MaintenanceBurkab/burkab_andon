@@ -1,5 +1,5 @@
 // BURKAB A.Ş — ANDON PANELİ v2.3 (Geliştirilmiş)
-const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbyJ-nFTCbeX6qN4M1slRGfPM7f4S_ne5gsCCW--9QIU2DUn8VJk2BnoWskxAAe_Xy-d/exec"; 
+const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbyc6SbAGgIe8qf35-vHomJUsjVaKRnA4TT5XlGJ-bExbq6_qqOYMFsVrlQXDYa__S8n/exec"; 
 // ↑↑↑ YUKARIDAKİ URL'Yİ YENİ DEPLOY URL'Sİ İLE DEĞİŞTİR ↑↑↑
 
 const DUYURU_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRZyesQIw-Q0fGlFWyQOx8Ce85D373Nx2YWxEMTO1wzosd-1lLOtC_strxvT94etACZmnMRb-KHkyhm/pub?gid=1868540949&single=true&output=csv";
