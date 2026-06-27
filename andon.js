@@ -31,9 +31,9 @@ function verimlilikSesiCal(verimlilik) {
     if (verimlilik >= esik.seviye && sonVerimlilikSeviyesi < esik.seviye) {
       console.log(`🎉 Alkış sesi çalındı! Seviye: ${esik.isim} (%${verimlilik})`);
 
-      // === GERÇEK ALKİŞ SESİ ===
-      const audio = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_5b0e0e0e2e.mp3");
-      audio.volume = 0.7;
+      // === KULLANACAĞIMIZ ALKİŞ SESİ ===
+      const audio = new Audio("freesound_community-claps-44774.mp3");
+      audio.volume = 0.8;
       audio.play().catch(e => console.warn("Ses çalınamadı:", e));
 
       sonVerimlilikSeviyesi = verimlilik;
@@ -41,7 +41,6 @@ function verimlilikSesiCal(verimlilik) {
     }
   }
 }
-
 // ══════════════════════════════════════════════
 // ANA ANDON KODLARI
 // ══════════════════════════════════════════════
