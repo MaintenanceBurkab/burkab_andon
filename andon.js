@@ -3,7 +3,35 @@ const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycby9fGhqzqbZNDyCjQ
 // ↑↑↑ YUKARIDAKİ URL'Yİ YENİ DEPLOY URL'Sİ İLE DEĞİŞTİR ↑↑↑
 
 const DUYURU_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRZyesQIw-Q0fGlFWyQOx8Ce85D373Nx2YWxEMTO1wzosd-1lLOtC_strxvT94etACZmnMRb-KHkyhm/pub?gid=1868540949&single=true&output=csv";
+// ══════════════════════════════════════════════
+// VERİMLİLİK ALKİŞ SESİ SİSTEMİ (3 Seviye)
+// ══════════════════════════════════════════════
+let sonVerimlilikSeviyesi = 0;
 
+function verimlilikSesiCal(verimlilik) {
+  // Eşik tanımları
+  const esikler = [
+    { seviye: 70,  isim: "hafif",  dosya: "https://cdn.pixabay.com/audio/2022/03/15/audio_5b0e0e0e2e.mp3" },
+    { seviye: 85,  isim: "orta",   dosya: "https://cdn.pixabay.com/audio/2022/03/15/audio_5b0e0e0e2e.mp3" },
+    { seviye: 95,  isim: "guclu",  dosya: "https://cdn.pixabay.com/audio/2024/02/20/audio_8f7e5c2e1a.mp3" }
+  ];
+
+  for (let i = 0; i < esikler.length; i++) {
+    const esik = esikler[i];
+
+    // Eğer bu eşiği geçtiyse ve daha önce geçmediyse ses çal
+    if (verimlilik >= esik.seviye && sonVerimlilikSeviyesi < esik.seviye) {
+      console.log(`🎉 Alkış sesi çalındı! Seviye: ${esik.isim} (%${verimlilik})`);
+      
+      const audio = new Audio(esik.dosya);
+      audio.volume = 0.6;           // Ses seviyesini ayarla (0.0 - 1.0)
+      audio.play().catch(e => console.warn("Ses çalınamadı:", e));
+      
+      sonVerimlilikSeviyesi = verimlilik;
+      break; // Sadece bir ses çalsın
+    }
+  }
+}
 function el(id) { return document.getElementById(id); }
 function setText(id, text) {
   const e = el(id);
@@ -48,15 +76,18 @@ function uiGuncelle(data) {
   setText("toplamFire", (d.fire || 0) + " Adet");
 
   // Verimlilik
-  const verimlilik = d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0;
-  setText("verimlilikYuzde", "%" + verimlilik);
+  // === VERİMLİLİK HESAPLA ===
+const verimlilik = d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0;
+setText("verimlilikYuzde", "%" + verimlilik);
 
-  const bar = el("verimlilikBar");
-  if (bar) {
-    bar.style.width = Math.min(verimlilik, 100) + "%";
-    bar.style.background = verimlilik >= 90 ? "#4caf50" : verimlilik >= 70 ? "#ffc107" : "#f44336";
-  }
+const bar = el("verimlilikBar");
+if (bar) {
+  bar.style.width = Math.min(verimlilik, 100) + "%";
+  bar.style.background = verimlilik >= 90 ? "#4caf50" : verimlilik >= 70 ? "#ffc107" : "#f44336";
+}
 
+// === ALKİŞ SESİ (Verimlilik eşiği geçtiyse çal) ===
+verimlilikSesiCal(verimlilik);
   // Duruşlar
   const arizalar = d.sonArizalar || [];
   const durusListeEl = el("durusListesi");
