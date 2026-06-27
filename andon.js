@@ -1,8 +1,3 @@
-// BURKAB A.Ş — ANDON PANELİ v2.3 (Geliştirilmiş)
-const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycby9fGhqzqbZNDyCjQ1R7lKD5aHUw2_TFrgPMyDkoUnOATzjY-3-sRURJw9PqNDPMvQw/exec"; 
-// ↑↑↑ YUKARIDAKİ URL'Yİ YENİ DEPLOY URL'Sİ İLE DEĞİŞTİR ↑↑↑
-
-const DUYURU_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRZyesQIw-Q0fGlFWyQOx8Ce85D373Nx2YWxEMTO1wzosd-1lLOtC_strxvT94etACZmnMRb-KHkyhm/pub?gid=1868540949&single=true&output=csv";
 // ══════════════════════════════════════════════
 // VERİMLİLİK ALKİŞ SESİ SİSTEMİ (3 Seviye)
 // ══════════════════════════════════════════════
@@ -32,6 +27,12 @@ function verimlilikSesiCal(verimlilik) {
     }
   }
 }
+// BURKAB A.Ş — ANDON PANELİ v2.3 (Geliştirilmiş)
+const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycby9fGhqzqbZNDyCjQ1R7lKD5aHUw2_TFrgPMyDkoUnOATzjY-3-sRURJw9PqNDPMvQw/exec"; 
+// ↑↑↑ YUKARIDAKİ URL'Yİ YENİ DEPLOY URL'Sİ İLE DEĞİŞTİR ↑↑↑
+
+const DUYURU_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRZyesQIw-Q0fGlFWyQOx8Ce85D373Nx2YWxEMTO1wzosd-1lLOtC_strxvT94etACZmnMRb-KHkyhm/pub?gid=1868540949&single=true&output=csv";
+
 function el(id) { return document.getElementById(id); }
 function setText(id, text) {
   const e = el(id);
