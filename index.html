@@ -35,12 +35,16 @@
       font-weight: 800;
     }
 
-    /* === KAYAN DUYURU ANIMASYONU === */
-    <style>
+  <style>
   @keyframes kayanYazi {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
+</style>
   </style>
 </head>
 <body class="bg-[#0a0a0e] text-white">
@@ -166,17 +170,14 @@
 <div class="fixed bottom-0 left-0 right-0 bg-[#f5c400] text-black h-[52px] flex items-center z-50">
   <div class="max-w-[1600px] mx-auto w-full px-5 flex items-center gap-x-4 overflow-hidden">
     
-    <!-- Başlık -->
-    <div class="font-black text-lg tracking-wider flex items-center gap-x-2 shrink-0 text-black">
+    <div class="font-black text-lg tracking-wider flex items-center gap-x-2 shrink-0">
       <i class="fa-solid fa-bell"></i>
       <span>DUYURU</span>
     </div>
 
-    <!-- Kayan Alan -->
     <div class="flex-1 overflow-hidden">
       <div id="duyuruAlani"
-           class="inline-block whitespace-nowrap text-base font-bold"
-           style="animation: kayanYazi 25s linear infinite; color: black;">
+           style="display: inline-block; white-space: nowrap; animation: kayanYazi 22s linear infinite; font-weight: 700; font-size: 15px;">
         <!-- andon.js burayı dolduracak -->
       </div>
     </div>
