@@ -1,6 +1,6 @@
 // ==================== ANDON.JS v5.4 ====================
 
-const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycby4eZt-0FFLSYMNNwZO4pVVx5YV-DY3DhsFddk2ZAzFQHod9i50QOR6Z8k436K5IBgi/exec";
+const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbzddkojg0dGs0ypGNWDclZOCnrxRFLDoDLIGcQpcS3bF3XO--k7X-3oV-42DddLTmRv/exec";
 
 // === SES SİSTEMİ ===
 let sesAktif = false;
@@ -69,7 +69,42 @@ function guncelleTakimlar(takimlar) {
     container.appendChild(card);
   });
 }
+// ==================== DURUŞ GÜNCELLEME ====================
 
+function guncelleDuruslar(arizalar) {
+  const container = document.getElementById("durusListesi");
+  if (!container) return;
+
+  if (!arizalar || arizalar.length === 0) {
+    container.innerHTML = `
+      <div class="durus-row flex justify-between items-center px-4 py-3 rounded-2xl" style="color:#4caf50; border-left-color:#4caf50">
+        ✅ Bugün aktif duruş yok
+      </div>
+    `;
+    document.getElementById("aktifDurus").innerHTML = `YOK ✓`;
+    document.getElementById("aktifDurus").style.color = '#4caf50';
+    return;
+  }
+
+  document.getElementById("aktifDurus").innerHTML = `VAR! (${arizalar.length})`;
+  document.getElementById("aktifDurus").style.color = '#f44336';
+
+  container.innerHTML = arizalar.map(a => {
+    const projeMakine = a.projeNo && a.projeNo !== '-' 
+      ? `${a.projeNo} - ${a.makine}` 
+      : a.makine;
+
+    return `
+      <div class="durus-row flex justify-between items-center px-4 py-3 rounded-2xl">
+        <div>
+          <span class="font-bold text-[#f5c400]">${projeMakine}</span><br>
+          <span class="text-xs text-[#aaa]">${a.neden}</span>
+        </div>
+        <div class="text-right font-mono text-lg font-bold text-[#f59e0b]">${a.saat}</div>
+      </div>
+    `;
+  }).join('');
+}
 // ==================== VERİ GÜNCELLEME ====================
 
 function uiGuncelle(data) {
@@ -103,7 +138,10 @@ function uiGuncelle(data) {
   if (d.takimlar && d.takimlar.length > 0) {
     guncelleTakimlar(d.takimlar);
   }
-
+// Duruşları güncelle
+if (d.sonArizalar) {
+  guncelleDuruslar(d.sonArizalar);
+}
   console.log("%c[Andon] Veri güncellendi", "color:#854d0e");
 }
 
