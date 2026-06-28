@@ -105,6 +105,7 @@ function guncelleTakimlar(takimlar) {
 function guncelleDuruslar(arizalar) {
   const container = document.getElementById("durusListesi");
   if (!container) return;
+
   const aktifDurusEl = document.getElementById("aktifDurus");
 
   if (!arizalar || arizalar.length === 0) {
@@ -129,11 +130,48 @@ function guncelleDuruslar(arizalar) {
     const projeMakine = a.projeNo && a.projeNo !== '-' 
       ? `${a.projeNo} - ${a.makine}` 
       : a.makine;
+
+    const neden = (a.neden || "").toLowerCase();
+    let icon = "";
+    let anim = "";
+
+    // === İKON VE ANİMASYON EŞLEŞTİRME ===
+    if (neden.includes("mekanik")) {
+      icon = `<i class="fa-solid fa-cog fa-spin text-orange-500"></i>`;
+    } 
+    else if (neden.includes("elektrik")) {
+      icon = `<i class="fa-solid fa-bolt fa-beat text-yellow-400"></i>`;
+    } 
+    else if (neden.includes("elektronik")) {
+      icon = `<i class="fa-solid fa-microchip text-blue-400"></i>`;
+    } 
+    else if (neden.includes("malzeme")) {
+      icon = `<i class="fa-solid fa-box text-purple-400"></i>`;
+    } 
+    else if (neden.includes("kalıp")) {
+      icon = `<i class="fa-solid fa-wrench text-amber-500"></i>`;
+    } 
+    else if (neden.includes("planlı")) {
+      icon = `<i class="fa-solid fa-calendar-check text-emerald-400"></i>`;
+    } 
+    else if (neden.includes("kalite")) {
+      icon = `<i class="fa-solid fa-search text-sky-400"></i>`;
+    } 
+    else if (neden.includes("personel")) {
+      icon = `<i class="fa-solid fa-user text-pink-400"></i>`;
+    } 
+    else {
+      icon = `<i class="fa-solid fa-exclamation-triangle text-[#f59e0b]"></i>`;
+    }
+
     return `
       <div class="durus-row flex justify-between items-center px-4 py-3 rounded-2xl">
-        <div>
-          <span class="font-bold text-[#f5c400]">${projeMakine}</span><br>
-          <span class="text-xs text-[#aaa]">${a.neden}</span>
+        <div class="flex items-center gap-x-3">
+          <span style="font-size:1.25rem; width:22px; text-align:center;">${icon}</span>
+          <div>
+            <span class="font-bold text-[#f5c400]">${projeMakine}</span><br>
+            <span class="text-xs text-[#aaa]">${a.neden}</span>
+          </div>
         </div>
         <div class="text-right font-mono text-lg font-bold text-[#f59e0b]">${a.saat}</div>
       </div>
