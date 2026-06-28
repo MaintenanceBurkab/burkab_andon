@@ -110,8 +110,6 @@ function guncelleTakimlar(takimlar) {
 }
 
 
-// ==================== DURUŞ GÜNCELLEME ====================
-
 function guncelleDuruslar(arizalar) {
   const container = document.getElementById("durusListesi");
   if (!container) return;
@@ -142,10 +140,10 @@ function guncelleDuruslar(arizalar) {
   const yeniDuruslar = mevcutFormNoList.filter(no => !oncekiDurusFormNoList.includes(no));
 
   if (yeniDuruslar.length > 0) {
-    oynatDurusUyariSesi(); // Sadece yeni duruş geldiğinde çal
+    oynatDurusUyariSesi();
   }
 
-  oncekiDurusFormNoList = mevcutFormNoList; // Listeyi güncelle
+  oncekiDurusFormNoList = mevcutFormNoList;
 
   // === DURUŞ LİSTESİNİ ÇİZ ===
   container.innerHTML = arizalar.map(a => {
@@ -155,7 +153,6 @@ function guncelleDuruslar(arizalar) {
 
     const neden = (a.neden || "").toLowerCase();
     let icon = "";
-    let anim = "";
 
     if (neden.includes("mekanik")) {
       icon = `<i class="fa-solid fa-cog fa-spin text-orange-500"></i>`;
@@ -226,10 +223,9 @@ function uiGuncelle(data) {
     guncelleTakimlar(d.takimlar);
   }
 
-  // Duruşları güncelle
-  if (d.sonArizalar) {
-    (d.sonArizalar);
-  }
+ if (d.sonArizalar) {
+  guncelleDuruslar(d.sonArizalar);
+}
 
   // Verimlilik sesi
   verimlilikSesiCal(verim);
