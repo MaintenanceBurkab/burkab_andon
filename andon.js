@@ -1,9 +1,35 @@
 // ==================== ANDON.JS v5.4 ====================
 
+
+
 const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbzegp0URa-nfKK_FbbKSsySnIW1sJCHX834f-KFNChcT_3eNydkBgM9DZdsDlKHJaog/exec";
+const DUYURU_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRZyesQIw-Q0fGlFWyQOx8Ce85D373Nx2YWxEMTO1wzosd-1lLOtC_strxvT94etACZmnMRb-KHkyhm/pub?gid=1868540949&single=true&output=csv";
 
 // === SES SİSTEMİ ===
 let sesAktif = false;
+let sonVerimlilikSeviyesi = 0;
+let oncekiDurusFormNoList = [];
+
+// Base64 Sesler (Önceki sürümden alındı)
+const ALKIS_BASE64 = "BURAYA_BASE64_ALKIS_SESI";   // ← Buraya önceki dosyadaki ALKIS_BASE64'yi yapıştır
+const UYARI_BASE64 = "BURAYA_BASE64_UYARI_SESI";   // ← Buraya önceki dosyadaki UYARI_BASE64'yi yapıştır
+
+function oynatSes(base64) {
+  if (!sesAktif || !base64 || base64.includes("BURAYA")) return;
+  try {
+    const audio = new Audio("data:audio/mp3;base64," + base64);
+    audio.volume = 0.85;
+    audio.play().catch(() => {});
+  } catch (e) {}
+}
+
+function oynatAlkisSesi() {
+  oynatSes(ALKIS_BASE64);
+}
+
+function oynatDurusUyariSesi() {
+  oynatSes(UYARI_BASE64);
+}
 
 // Ses Butonu
 function sesButonuOlustur() {
@@ -19,11 +45,24 @@ function sesButonuOlustur() {
     btn.innerHTML = sesAktif 
       ? `<i class="fa-solid fa-volume-up"></i> Sesleri Kapat` 
       : `<i class="fa-solid fa-volume-mute"></i> Sesleri Aç`;
+    if (sesAktif) oynatSes(ALKIS_BASE64);
   };
 
   document.body.appendChild(btn);
 }
 
+function verimlilikSesiCal(yeniVerim) {
+  if (!sesAktif) return;
+
+  const esikler = [70, 85, 95];
+  for (let esik of esikler) {
+    if (yeniVerim >= esik && sonVerimlilikSeviyesi < esik) {
+      oynatAlkisSesi();
+      sonVerimlilikSeviyesi = yeniVerim;
+      break;
+    }
+  }
+}
 // ==================== VERİ ÇEKME ====================
 
 function verileriCek() {
