@@ -244,9 +244,29 @@ function duyuruGuncelle(data) {
   const duyuruEl = document.getElementById("duyuruAlani");
   if (duyuruEl) {
     duyuruEl.innerHTML = duyuruMetni + "   ✦   " + duyuruMetni;
+    duyuruEl.style.transform = "translateX(0)"; // Başlangıç pozisyonu
   }
 }
 
+// ==================== KAYAN DUYURU (JavaScript ile - Daha Stabil) ====================
+
+function baslatKayanDuyuru() {
+  const duyuruEl = document.getElementById("duyuruAlani");
+  if (!duyuruEl) return;
+
+  let position = 0;
+  const speed = 0.8; // Kayma hızı (ne kadar küçükse o kadar yavaş)
+
+  setInterval(() => {
+    position -= speed;
+    duyuruEl.style.transform = `translateX(${position}px)`;
+
+    // Metin tamamen kayınca başa dön
+    if (Math.abs(position) > duyuruEl.scrollWidth / 2) {
+      position = 0;
+    }
+  }, 30);
+}
 // ==================== BAŞLAT ====================
 
 function init() {
@@ -261,13 +281,18 @@ function init() {
     if (tarihEl) tarihEl.innerText = now.toLocaleDateString("tr-TR");
   }, 1000);
 
-  // İlk veri çek
+  // İlk veri çek (KPI + Takım + Duruş)
   verileriCek();
   setInterval(verileriCek, 30000);
 
-  // Kayan duyuru
+  // Kayan duyuru verisi çek
   duyurulariGetir();
   setInterval(duyurulariGetir, 30000);
+
+  // Kayan animasyonu başlat (JavaScript ile)
+  setTimeout(() => {
+    baslatKayanDuyuru();
+  }, 1200);
 
   console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
 }
