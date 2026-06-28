@@ -11,14 +11,17 @@ let sesAktif = false;
 let sonVerimlilikSeviyesi = 0;
 
 function oynatSes(base64) {
-  if (!sesAktif || !base64 || base64.includes("BURAYA")) return;
+  if (!sesAktif) return;
+  if (!base64 || base64.length < 100) return; // Base64 çok kısaysa çalma
+
   try {
     const audio = new Audio("data:audio/mp3;base64," + base64);
     audio.volume = 0.85;
     audio.play().catch(() => {});
-  } catch (e) {}
+  } catch (e) {
+    console.log("Ses çalma hatası:", e);
+  }
 }
-
 function oynatAlkisSesi() {
   oynatSes(ALKIS_BASE64);
 }
