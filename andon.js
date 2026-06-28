@@ -111,14 +111,12 @@ function guncelleTakimlar(takimlar) {
 
 // ==================== DURUŞ GÜNCELLEME ====================
 
-function guncelleDuruslar(arizalar) {
+function (arizalar) {
   const container = document.getElementById("durusListesi");
   if (!container) return;
 
   const aktifDurusEl = document.getElementById("aktifDurus");
-  if (arizalar && arizalar.length > 0) {
-    oynatDurusUyariSesi(); // ← Bunu ekle
-  }
+
   if (!arizalar || arizalar.length === 0) {
     container.innerHTML = `
       <div class="durus-row flex justify-between items-center px-4 py-3 rounded-2xl" style="color:#4caf50; border-left-color:#4caf50">
@@ -129,6 +127,7 @@ function guncelleDuruslar(arizalar) {
       aktifDurusEl.innerHTML = `YOK ✓`;
       aktifDurusEl.style.color = '#4caf50';
     }
+    oncekiDurusFormNoList = [];
     return;
   }
 
@@ -137,6 +136,17 @@ function guncelleDuruslar(arizalar) {
     aktifDurusEl.style.color = '#f44336';
   }
 
+  // === YENİ DURUŞ KONTROLÜ ===
+  const mevcutFormNoList = arizalar.map(a => a.formNo);
+  const yeniDuruslar = mevcutFormNoList.filter(no => !oncekiDurusFormNoList.includes(no));
+
+  if (yeniDuruslar.length > 0) {
+    oynatDurusUyariSesi(); // Sadece yeni duruş geldiğinde çal
+  }
+
+  oncekiDurusFormNoList = mevcutFormNoList; // Listeyi güncelle
+
+  // === DURUŞ LİSTESİNİ ÇİZ ===
   container.innerHTML = arizalar.map(a => {
     const projeMakine = a.projeNo && a.projeNo !== '-' 
       ? `${a.projeNo} - ${a.makine}` 
@@ -146,32 +156,23 @@ function guncelleDuruslar(arizalar) {
     let icon = "";
     let anim = "";
 
-    // === İKON VE ANİMASYON EŞLEŞTİRME ===
     if (neden.includes("mekanik")) {
       icon = `<i class="fa-solid fa-cog fa-spin text-orange-500"></i>`;
-    } 
-    else if (neden.includes("elektrik")) {
+    } else if (neden.includes("elektrik")) {
       icon = `<i class="fa-solid fa-bolt fa-beat text-yellow-400"></i>`;
-    } 
-    else if (neden.includes("elektronik")) {
+    } else if (neden.includes("elektronik")) {
       icon = `<i class="fa-solid fa-microchip text-blue-400"></i>`;
-    } 
-    else if (neden.includes("malzeme")) {
+    } else if (neden.includes("malzeme")) {
       icon = `<i class="fa-solid fa-box text-purple-400"></i>`;
-    } 
-    else if (neden.includes("kalıp")) {
+    } else if (neden.includes("kalıp")) {
       icon = `<i class="fa-solid fa-wrench text-amber-500"></i>`;
-    } 
-    else if (neden.includes("planlı")) {
+    } else if (neden.includes("planlı")) {
       icon = `<i class="fa-solid fa-calendar-check text-emerald-400"></i>`;
-    } 
-    else if (neden.includes("kalite")) {
+    } else if (neden.includes("kalite")) {
       icon = `<i class="fa-solid fa-search text-sky-400"></i>`;
-    } 
-    else if (neden.includes("personel")) {
+    } else if (neden.includes("personel")) {
       icon = `<i class="fa-solid fa-user text-pink-400"></i>`;
-    } 
-    else {
+    } else {
       icon = `<i class="fa-solid fa-exclamation-triangle text-[#f59e0b]"></i>`;
     }
 
@@ -226,7 +227,7 @@ function uiGuncelle(data) {
 
   // Duruşları güncelle
   if (d.sonArizalar) {
-    guncelleDuruslar(d.sonArizalar);
+    (d.sonArizalar);
   }
 
   // Verimlilik sesi
