@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
-    
+
     .industrial-card {
       background-color: #13131a;
       border: 2px solid #222230;
@@ -34,28 +34,12 @@
       line-height: 1;
       font-weight: 800;
     }
-    <style>
-  <!-- KAYAN DUYURU -->
-<div class="fixed bottom-0 left-0 right-0 bg-[#f5c400] text-[#1a1a1a] h-[52px] flex items-center z-50">
-  <div class="max-w-[1600px] mx-auto w-full px-5 flex items-center gap-x-4 overflow-hidden">
-    
-    <!-- Başlık -->
-    <div class="font-black text-lg tracking-wider flex items-center gap-x-2 shrink-0">
-      <i class="fa-solid fa-bell"></i>
-      <span>DUYURU</span>
-    </div>
 
-    <!-- Kayan Alan -->
-    <div class="flex-1 overflow-hidden relative">
-      <div id="duyuruAlani" 
-           class="inline-block whitespace-nowrap text-sm md:text-base font-semibold"
-           style="animation: kayanYazi 25s linear infinite;">
-        <!-- andon.js burayı dolduracak -->
-      </div>
-    </div>
-
-  </div>
-</div>
+    /* === KAYAN DUYURU ANIMASYONU === */
+    @keyframes kayanYazi {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
   </style>
 </head>
 <body class="bg-[#0a0a0e] text-white">
@@ -64,7 +48,6 @@
   <header class="bg-[#0f0f14] header-gold px-5 md:px-8 py-4 md:py-5">
     <div class="max-w-[1600px] mx-auto">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
-        
         <div>
           <div class="text-[#f5c400] text-2xl md:text-3xl font-black tracking-[-1px]">BURKAB A.Ş.</div>
           <div class="text-[#666] text-xs md:text-sm font-medium tracking-[2px] -mt-1">ÜRETİM TAKİP SİSTEMİ v5.4</div>
@@ -129,8 +112,7 @@
         <span class="section-title">TAKIM / HAT VERİMLİLİKLERİ</span>
         <span class="text-xs text-[#666]">Son 30 dakika • Otomatik güncellenir</span>
       </div>
-
-      <div id="takimContainer" 
+      <div id="takimContainer"
            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
         <!-- andon.js burayı dinamik dolduracak -->
       </div>
@@ -157,13 +139,12 @@
       <!-- DURUŞLAR -->
       <div class="lg:col-span-10">
         <div class="industrial-card rounded-3xl overflow-hidden h-full flex flex-col">
-          
           <div class="px-5 md:px-6 pt-4 pb-3 flex items-center justify-between border-b border-[#222230]">
             <div class="flex items-center gap-x-3">
               <i class="fa-solid fa-exclamation-triangle text-[#f59e0b]"></i>
               <span class="section-title">BUGÜNKÜ DURUŞLAR</span>
             </div>
-            <div id="aktifDurus" 
+            <div id="aktifDurus"
                  class="px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs md:text-sm font-bold flex items-center gap-x-2">
               <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -172,12 +153,9 @@
               <span>YOK ✓</span>
             </div>
           </div>
-
-          <!-- Duruş Listesi -->
           <div id="durusListesi" class="p-4 space-y-2 text-sm">
             <!-- andon.js burayı dinamik dolduracak -->
           </div>
-
         </div>
       </div>
     </div>
@@ -185,13 +163,15 @@
 
   <!-- KAYAN DUYURU -->
   <div class="fixed bottom-0 left-0 right-0 bg-[#f5c400] text-[#1a1a1a] h-[52px] flex items-center z-50">
-    <div class="max-w-[1600px] mx-auto w-full px-5 flex items-center gap-x-4">
+    <div class="max-w-[1600px] mx-auto w-full px-5 flex items-center gap-x-4 overflow-hidden">
       <div class="font-black text-lg tracking-wider flex items-center gap-x-2 shrink-0">
         <i class="fa-solid fa-bell"></i>
         <span>DUYURU</span>
       </div>
       <div class="flex-1 overflow-hidden">
-        <div id="duyuruAlani" class="text-sm md:text-base font-semibold whitespace-nowrap animate-marquee">
+        <div id="duyuruAlani"
+             class="inline-block whitespace-nowrap text-sm md:text-base font-semibold"
+             style="animation: kayanYazi 25s linear infinite;">
           <!-- andon.js burayı dolduracak -->
         </div>
       </div>
@@ -199,7 +179,7 @@
   </div>
 
   <!-- Ses Butonu -->
-  <button id="sesButonu" 
+  <button id="sesButonu"
           class="fixed bottom-16 right-5 z-[60] px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm rounded-full flex items-center gap-x-2 shadow-lg">
     <i class="fa-solid fa-volume-up"></i>
     <span>Sesleri Kapat</span>
