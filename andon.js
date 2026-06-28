@@ -235,13 +235,15 @@ function duyurulariGetir() {
 
 function duyuruGuncelle(data) {
   if (!data || !data.ok || !data.data) return;
+
   const satirlar = data.data;
   if (satirlar.length === 0) return;
 
-  const duyuruMetni = satirlar.join(" ✦ ");
+  const duyuruMetni = satirlar.join("   ✦   ");
+
   const duyuruEl = document.getElementById("duyuruAlani");
   if (duyuruEl) {
-    duyuruEl.innerHTML = duyuruMetni + " ✦ " + duyuruMetni;
+    duyuruEl.innerHTML = duyuruMetni + "   ✦   " + duyuruMetni;
   }
 }
 
