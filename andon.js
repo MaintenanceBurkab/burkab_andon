@@ -200,7 +200,8 @@ function init() {
 
   // 30 saniyede bir otomatik yenile
   setInterval(verileriCek, 30000);
-
+  duyurulariGetir();                    
+  setInterval(duyurulariGetir, 30000);
   console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
 }
 
