@@ -6,7 +6,6 @@
   <title>BURKAB A.Ş — CANLI ANDON PANELİ</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.min.css" rel="stylesheet">
   <style>
-    /* ── RESET & TEMEL ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       height: 100%;
@@ -15,11 +14,8 @@
       font-family: 'Segoe UI', system-ui, sans-serif;
       overflow: hidden;
     }
-    body {
-      display: flex;
-      flex-direction: column;
-    }
-    /* ── HEADER ─────────────────────────────────────────────── */
+    body { display: flex; flex-direction: column; }
+
     .header {
       display: flex;
       justify-content: space-between;
@@ -46,9 +42,7 @@
       letter-spacing: 2px;
       text-transform: uppercase;
     }
-    .header-orta {
-      text-align: center;
-    }
+    .header-orta { text-align: center; }
     .header-orta h2 {
       font-size: 1.5rem;
       font-weight: 800;
@@ -76,7 +70,6 @@
       font-family: monospace;
       margin-top: 3px;
     }
-    /* ── BAĞLANTI UYARI ─────────────────────────────────────── */
     #baglantiDurum {
       display: none;
       background: #1a1200;
@@ -87,7 +80,6 @@
       font-size: 0.8rem;
       flex-shrink: 0;
     }
-    /* ── ANA ALAN ───────────────────────────────────────────── */
     .main {
       flex: 1;
       display: flex;
@@ -96,7 +88,6 @@
       padding: 12px 24px 0 24px;
       overflow: hidden;
     }
-    /* ── ÜRETİM METRİKLERİ (ÜST) ───────────────────────────── */
     .metrik-panel {
       display: flex;
       background: #13131a;
@@ -128,7 +119,6 @@
       font-family: monospace;
       line-height: 1;
     }
-    /* Verimlilik progress bar */
     .bar-wrap {
       width: 85%;
       max-width: 260px;
@@ -145,7 +135,6 @@
       transition: width 0.8s ease, background-color 0.4s ease;
       background: #4caf50;
     }
-    /* ── ALT PANEL: FIRE + DURUŞLAR ─────────────────────────── */
     .alt-panel {
       display: flex;
       gap: 12px;
@@ -232,7 +221,6 @@
       font-size: 0.95rem;
       flex-shrink: 0;
     }
-    .durus-ikon { font-size: 2.1rem; flex-shrink: 0; }
     .durus-proje { font-weight: 800; color: #f5c400; font-family: monospace; white-space: nowrap; font-size:2.9rem; }
     .durus-makine { font-weight: 800; color: #fff; white-space: nowrap; font-size: 1.45rem; line-height: 2.1; }
     .durus-ayrac { color: #444; }
@@ -246,7 +234,6 @@
       text-align: right;
       flex-shrink: 0;
     }
-    /* ── KAYAN DUYURU ───────────────────────────────────────── */
     .duyuru-ust {
       position: fixed;
       bottom: 0;
@@ -293,21 +280,21 @@
   </style>
 </head>
 <body>
-  <!-- ── HEADER ────────────────────────────────────────────── -->
+  <!-- HEADER -->
   <header class="header">
     <div class="header-sol">
       <span class="header-logo">BURKAB A.Ş.</span>
       <span class="header-alt">Üretim Takip Sistemi v5.4</span>
-
-      <!-- ✅ Created by Maintenance Team — tam istediğin yere eklendi -->
-      <div style="text-align:left; margin-top:4px; font-size:10.5px; font-weight:700; letter-spacing:1.8px; background:linear-gradient(90deg,#b8860b,#f5c400,#ffd700,#f5c400,#b8860b); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-transform:uppercase;">
-        ✦ Created by Maintenance Team ✦
-      </div>
     </div>
 
     <div class="header-orta">
       <h2>CANLI ÜRETİM VERİ PANELİ</h2>
       <small>OTOMATİK YENİLENİR — 30 SANİYEDE BİR</small>
+
+      <!-- ✅ Created by Maintenance Team — "OTOMATİK YENİLENİR" yazısının hemen altına -->
+      <div style="margin-top: 6px; text-align: center; font-size: 10.5px; font-weight: 700; letter-spacing: 1.8px; background: linear-gradient(90deg, #b8860b, #f5c400, #ffd700, #f5c400, #b8860b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-transform: uppercase;">
+        ✦ Created by Maintenance Team ✦
+      </div>
     </div>
 
     <div class="header-sag">
@@ -316,10 +303,8 @@
     </div>
   </header>
 
-  <!-- ── BAĞLANTI UYARI ────────────────────────────────────── -->
   <div id="baglantiDurum"></div>
 
-  <!-- ── ANA ALAN ──────────────────────────────────────────── -->
   <main class="main">
     <!-- Üretim metrikleri -->
     <div class="metrik-panel">
@@ -340,7 +325,6 @@
       </div>
     </div>
 
-    <!-- Alt panel -->
     <div class="alt-panel">
       <!-- Fire -->
       <div class="fire-kart">
@@ -349,7 +333,7 @@
         <span style="font-size:0.7rem;color:#555;margin-top:4px;">Bugün</span>
       </div>
 
-      <!-- Duruş Paneli -->
+      <!-- Duruşlar -->
       <div class="durus-kart" id="durusPaneli">
         <div class="durus-kart-baslik">
           <span class="durus-kart-baslik-metin">⏱️ Bugünkü Duruşlar</span>
@@ -365,7 +349,7 @@
     </div>
   </main>
 
-  <!-- ── KAYAN DUYURU ───────────────────────────────────────── -->
+  <!-- Kayan Duyuru -->
   <div class="duyuru-ust">
     <div class="duyuru-etiket">🔔 DUYURU</div>
     <div class="duyuru-kaydir">
