@@ -152,7 +152,35 @@ if (d.sonArizalar) {
 }
   console.log("%c[Andon] Veri güncellendi", "color:#854d0e");
 }
+// ==================== KAYAN DUYURU ====================
 
+const DUYURU_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRZyesQIw-Q0fGlFWyQOx8Ce85D373Nx2YWxEMTO1wzosd-1lLOtC_strxvT94etACZmnMRb-KHkyhm/pub?gid=1868540949&single=true&output=csv";
+
+async function duyurulariGetir() {
+  try {
+    const res = await fetch(DUYURU_CSV_URL);
+    const text = await res.text();
+
+    // Her satırı al ve temizle
+    const satirlar = text
+      .split('\n')
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
+    if (satirlar.length === 0) return;
+
+    // Aralarına güzel bir ayırıcı koy
+    const duyuruMetni = satirlar.join("   ✦   ");
+
+    const duyuruEl = document.getElementById("duyuruAlani");
+    if (duyuruEl) {
+      duyuruEl.innerHTML = duyuruMetni + "   ✦   " + duyuruMetni;
+    }
+
+  } catch (err) {
+    console.error("Duyuru çekilemedi:", err);
+  }
+}
 // ==================== BAŞLAT ====================
 
 function init() {
