@@ -71,9 +71,13 @@ function guncelleTakimlar(takimlar) {
 }
 // ==================== DURUŞ GÜNCELLEME ====================
 
+// ==================== DURUŞ GÜNCELLEME ====================
+
 function guncelleDuruslar(arizalar) {
   const container = document.getElementById("durusListesi");
   if (!container) return;
+
+  const aktifDurusEl = document.getElementById("aktifDurus");
 
   if (!arizalar || arizalar.length === 0) {
     container.innerHTML = `
@@ -81,13 +85,17 @@ function guncelleDuruslar(arizalar) {
         ✅ Bugün aktif duruş yok
       </div>
     `;
-    document.getElementById("aktifDurus").innerHTML = `YOK ✓`;
-    document.getElementById("aktifDurus").style.color = '#4caf50';
+    if (aktifDurusEl) {
+      aktifDurusEl.innerHTML = `YOK ✓`;
+      aktifDurusEl.style.color = '#4caf50';
+    }
     return;
   }
 
-  document.getElementById("aktifDurus").innerHTML = `VAR! (${arizalar.length})`;
-  document.getElementById("aktifDurus").style.color = '#f44336';
+  if (aktifDurusEl) {
+    aktifDurusEl.innerHTML = `VAR! (${arizalar.length})`;
+    aktifDurusEl.style.color = '#f44336';
+  }
 
   container.innerHTML = arizalar.map(a => {
     const projeMakine = a.projeNo && a.projeNo !== '-' 
