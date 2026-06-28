@@ -4,9 +4,8 @@ const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycby4eZt-0FFLSYMNNw
 
 // === SES SİSTEMİ ===
 let sesAktif = false;
-let sonVerimlilikSeviyesi = 0;
 
-// Ses Butonu Oluştur
+// Ses Butonu
 function sesButonuOlustur() {
   if (document.getElementById("sesButonu")) return;
 
@@ -34,20 +33,41 @@ function verileriCek() {
   script.src = url;
   script.onerror = () => {
     console.error("Andon verisi çekilemedi");
-    // Hata durumunda örnek veri göster
-    uiGuncelle({
-      ok: true,
-      andonData: {
-        hedef: 1240,
-        gerceklesen: 876,
-        fire: 47,
-        verimlilik: 71,
-        takimlar: [],
-        sonArizalar: []
-      }
-    });
   };
   document.body.appendChild(script);
+}
+
+// ==================== TAKIM GÜNCELLEME ====================
+
+function guncelleTakimlar(takimlar) {
+  const container = document.getElementById("takimContainer");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  takimlar.forEach(t => {
+    const card = document.createElement("div");
+    card.className = `team-card rounded-2xl p-3.5`;
+
+    let renk = t.verim >= 85 ? "emerald" : t.verim >= 70 ? "amber" : "red";
+
+    card.innerHTML = `
+      <div class="flex justify-between items-start">
+        <div>
+          <div class="text-sm font-bold">${t.ad}</div>
+          <div class="text-xs text-[#666]">${t.takim}</div>
+        </div>
+        <div class="text-right">
+          <span class="text-2xl font-black text-${renk}-400">${t.verim}</span>
+          <span class="text-${renk}-400 text-sm">%</span>
+        </div>
+      </div>
+      <div class="h-1.5 bg-[#222230] rounded mt-2.5">
+        <div class="h-1.5 bg-${renk}-400 rounded" style="width:${t.verim}%"></div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
 }
 
 // ==================== VERİ GÜNCELLEME ====================
@@ -60,7 +80,7 @@ function uiGuncelle(data) {
 
   const d = data.andonData;
 
-  // === KPI GÜNCELLE ===
+  // KPI Güncelle
   const hedefEl = document.getElementById("toplamHedef");
   const gerceklesenEl = document.getElementById("toplamGerceklesen");
   const fireEl = document.getElementById("toplamFire");
@@ -70,9 +90,7 @@ function uiGuncelle(data) {
   if (hedefEl) hedefEl.innerText = (d.hedef || 0).toLocaleString("tr-TR");
   if (gerceklesenEl) gerceklesenEl.innerText = (d.gerceklesen || 0).toLocaleString("tr-TR");
   if (fireEl) fireEl.innerText = (d.fire || 0) + " Adet";
-if (d.takimlar && d.takimlar.length > 0) {
-  guncelleTakimlar(d.takimlar);
-}
+
   const verim = d.verimlilik || (d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0);
   
   if (verimEl) verimEl.innerText = verim + "%";
@@ -81,9 +99,9 @@ if (d.takimlar && d.takimlar.length > 0) {
     barEl.style.background = verim >= 90 ? "#4caf50" : verim >= 70 ? "#f59e0b" : "#ef4444";
   }
 
-  // Takımlar (şu an boş, sonra ekleyeceğiz)
+  // Takımları güncelle
   if (d.takimlar && d.takimlar.length > 0) {
-    // guncelleTakimlar(d.takimlar); // sonra aktif edeceğiz
+    guncelleTakimlar(d.takimlar);
   }
 
   console.log("%c[Andon] Veri güncellendi", "color:#854d0e");
