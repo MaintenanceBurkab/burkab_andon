@@ -1,6 +1,6 @@
 // ==================== ANDON.JS v5.4 ====================
 
-const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbziQIL_Zxqh4X1bv_hQhmTOUCXqc00rEIEcowfD6ST8GSoiVrgp0kTVqBn19nFCGy4C/exec";
+const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycby4eZt-0FFLSYMNNwZO4pVVx5YV-DY3DhsFddk2ZAzFQHod9i50QOR6Z8k436K5IBgi/exec";
 
 // === SES SİSTEMİ ===
 let sesAktif = false;
@@ -70,7 +70,9 @@ function uiGuncelle(data) {
   if (hedefEl) hedefEl.innerText = (d.hedef || 0).toLocaleString("tr-TR");
   if (gerceklesenEl) gerceklesenEl.innerText = (d.gerceklesen || 0).toLocaleString("tr-TR");
   if (fireEl) fireEl.innerText = (d.fire || 0) + " Adet";
-
+if (d.takimlar && d.takimlar.length > 0) {
+  guncelleTakimlar(d.takimlar);
+}
   const verim = d.verimlilik || (d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0);
   
   if (verimEl) verimEl.innerText = verim + "%";
