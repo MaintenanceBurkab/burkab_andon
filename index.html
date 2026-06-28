@@ -34,6 +34,20 @@
       line-height: 1;
       font-weight: 800;
     }
+
+    /* Kayan Duyuru */
+    .duyuru-kaydir {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .duyuru-icerik {
+      display: inline-block;
+      animation: kayanYazi 25s linear infinite;
+    }
+    @keyframes kayanYazi {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
   </style>
 </head>
 <body class="bg-[#0a0a0e] text-white">
@@ -43,13 +57,11 @@
     <div class="max-w-[1600px] mx-auto">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
         
-        <!-- Logo + Versiyon -->
         <div>
           <div class="text-[#f5c400] text-2xl md:text-3xl font-black tracking-[-1px]">BURKAB A.Ş.</div>
           <div class="text-[#666] text-xs md:text-sm font-medium tracking-[2px] -mt-1">ÜRETİM TAKİP SİSTEMİ v5.4</div>
         </div>
 
-        <!-- Başlık + Created by -->
         <div class="text-center">
           <div class="text-xl md:text-2xl font-bold tracking-[2px] md:tracking-[3px]">CANLI ANDON PANELİ</div>
           <div class="text-emerald-400 text-[10px] md:text-xs font-medium tracking-widest mt-0.5 flex items-center justify-center gap-x-1.5">
@@ -61,9 +73,8 @@
           </div>
         </div>
 
-        <!-- Saat -->
         <div class="text-center md:text-right">
-          <div id="andonSaat" class="font-mono text-3xl md:text-4xl font-black text-[#f5c400] tabular-nums">10:52:14</div>
+          <div id="andonSaat" class="font-mono text-3xl md:text-4xl font-black text-[#f5c400] tabular-nums">10:55:21</div>
           <div id="andonTarih" class="text-[#888] text-xs md:text-sm tracking-widest">28.06.2026</div>
         </div>
       </div>
@@ -112,25 +123,15 @@
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-        <!-- 10 Takım -->
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat A - Kesme</div><div class="text-xs text-[#666]">Takım 01</div></div><div class="text-right"><span class="text-2xl font-black text-emerald-400">92</span><span class="text-emerald-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-emerald-400 rounded" style="width:92%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat B - Krimpleme</div><div class="text-xs text-[#666]">Takım 02</div></div><div class="text-right"><span class="text-2xl font-black text-emerald-400">87</span><span class="text-emerald-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-emerald-400 rounded" style="width:87%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat C - Montaj</div><div class="text-xs text-[#666]">Takım 03</div></div><div class="text-right"><span class="text-2xl font-black text-amber-400">71</span><span class="text-amber-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-amber-400 rounded" style="width:71%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat D - Test</div><div class="text-xs text-[#666]">Takım 04</div></div><div class="text-right"><span class="text-2xl font-black text-red-400">58</span><span class="text-red-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-red-400 rounded" style="width:58%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat E - Paketleme</div><div class="text-xs text-[#666]">Takım 05</div></div><div class="text-right"><span class="text-2xl font-black text-emerald-400">94</span><span class="text-emerald-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-emerald-400 rounded" style="width:94%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat F - Kalite</div><div class="text-xs text-[#666]">Takım 06</div></div><div class="text-right"><span class="text-2xl font-black text-emerald-400">89</span><span class="text-emerald-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-emerald-400 rounded" style="width:89%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat G - Pres</div><div class="text-xs text-[#666]">Takım 07</div></div><div class="text-right"><span class="text-2xl font-black text-emerald-400">83</span><span class="text-emerald-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-emerald-400 rounded" style="width:83%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat H - Kaynak</div><div class="text-xs text-[#666]">Takım 08</div></div><div class="text-right"><span class="text-2xl font-black text-amber-400">76</span><span class="text-amber-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-amber-400 rounded" style="width:76%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat I - Boyama</div><div class="text-xs text-[#666]">Takım 09</div></div><div class="text-right"><span class="text-2xl font-black text-emerald-400">95</span><span class="text-emerald-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-emerald-400 rounded" style="width:95%"></div></div></div>
-        
         <div class="team-card rounded-2xl p-3.5"><div class="flex justify-between"><div><div class="text-sm font-bold">Hat J - Sevkiyat</div><div class="text-xs text-[#666]">Takım 10</div></div><div class="text-right"><span class="text-2xl font-black text-emerald-400">81</span><span class="text-emerald-400 text-sm">%</span></div></div><div class="h-1.5 bg-[#222230] rounded mt-2.5"><div class="h-1.5 bg-emerald-400 rounded" style="width:81%"></div></div></div>
       </div>
     </div>
@@ -138,7 +139,6 @@
     <!-- FIRE + DURUŞLAR -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
       
-      <!-- FIRE (Küçük) -->
       <div class="lg:col-span-2">
         <div class="industrial-card rounded-3xl p-5 h-full flex flex-col">
           <div class="flex items-center gap-x-2 mb-2">
@@ -153,7 +153,6 @@
         </div>
       </div>
 
-      <!-- DURUŞLAR -->
       <div class="lg:col-span-10">
         <div class="industrial-card rounded-3xl overflow-hidden h-full flex flex-col">
           <div class="px-5 md:px-6 pt-4 pb-3 flex items-center justify-between border-b border-[#222230]">
@@ -169,46 +168,4 @@
 
           <div class="p-4 space-y-2 text-sm" id="durusListesi">
             <div class="durus-row flex justify-between items-center px-4 py-3 rounded-2xl">
-              <div><span class="font-bold text-[#f5c400]">TP-03 • Kesme</span><br><span class="text-xs text-[#aaa]">Elektrik arızası</span></div>
-              <div class="text-right font-mono text-lg font-bold text-[#f59e0b]">18:42</div>
-            </div>
-            <div class="durus-row flex justify-between items-center px-4 py-3 rounded-2xl">
-              <div><span class="font-bold text-[#f5c400]">OKM-02 • Krimpleme</span><br><span class="text-xs text-[#aaa]">Kalıp değişimi</span></div>
-              <div class="text-right font-mono text-lg font-bold text-[#f59e0b]">07:15</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DUYURU -->
-  <div class="fixed bottom-0 left-0 right-0 bg-[#f5c400] text-[#1a1a1a] h-[48px] flex items-center z-50">
-    <div class="max-w-[1600px] mx-auto px-5 flex items-center gap-x-3 text-sm">
-      <span class="font-black flex items-center gap-x-2"><i class="fa-solid fa-bell"></i> DUYURU</span>
-      <div class="flex-1 overflow-hidden text-xs md:text-sm font-semibold whitespace-nowrap">ÖNCE İŞ GÜVENLİĞİ • KAHVE MOLASI • HAT C VERİMLİLİK DÜŞÜK • BAKIM EKİBİ MÜDAHALE EDİYOR</div>
-    </div>
-  </div>
-
-  <script>
-    function updateClock() {
-      const saat = document.getElementById('andonSaat');
-      const tarih = document.getElementById('andonTarih');
-      setInterval(() => {
-        const now = new Date();
-        saat.textContent = now.toLocaleTimeString('tr-TR', { hour12: false });
-        tarih.textContent = now.toLocaleDateString('tr-TR');
-      }, 1000);
-    }
-
-    function init() {
-      updateClock();
-      const now = new Date();
-      document.getElementById('andonSaat').textContent = now.toLocaleTimeString('tr-TR', { hour12: false });
-      document.getElementById('andonTarih').textContent = now.toLocaleDateString('tr-TR');
-    }
-
-    window.onload = init;
-  </script>
-</body>
-</html>
+              <div><
