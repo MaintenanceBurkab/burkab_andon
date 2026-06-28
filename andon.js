@@ -116,7 +116,9 @@ function guncelleDuruslar(arizalar) {
   if (!container) return;
 
   const aktifDurusEl = document.getElementById("aktifDurus");
-
+  if (arizalar && arizalar.length > 0) {
+    oynatDurusUyariSesi(); // ← Bunu ekle
+  }
   if (!arizalar || arizalar.length === 0) {
     container.innerHTML = `
       <div class="durus-row flex justify-between items-center px-4 py-3 rounded-2xl" style="color:#4caf50; border-left-color:#4caf50">
