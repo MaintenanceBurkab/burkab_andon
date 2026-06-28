@@ -112,7 +112,7 @@ function guncelleTakimlar(takimlar) {
 let oncekiDurusFormNoList = [];
 // ==================== DURUŞ GÜNCELLEME ====================
 
-function (arizalar) {
+function guncelleDuruslar(arizalar) {
   const container = document.getElementById("durusListesi");
   if (!container) return;
 
