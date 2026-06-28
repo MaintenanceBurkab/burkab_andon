@@ -109,6 +109,7 @@ function guncelleTakimlar(takimlar) {
   });
 }
 
+let oncekiDurusFormNoList = [];
 // ==================== DURUŞ GÜNCELLEME ====================
 
 function (arizalar) {
