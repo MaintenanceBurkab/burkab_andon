@@ -101,16 +101,17 @@
         </div>
       </div>
 
-      <div class="industrial-card rounded-3xl p-5 md:p-6">
-        <div class="flex justify-between items-center mb-2">
-          <div class="section-title">GENEL VERİMLİLİK</div>
-          <i class="fa-solid fa-tachometer-alt text-2xl text-[#f5c400]"></i>
-        </div>
-        <div><span id="verimlilikYuzde" class="kpi-value text-[#f5c400]">77</span> <span class="text-2xl text-[#f5c400]">%</span></div>
-        <div class="mt-2"><div class="h-2.5 bg-[#222230] rounded-full"><div id="verimlilikBar" class="h-2.5 bg-[#f5c400] rounded-full transition-all" style="width:77%"></div></div></div>
+     <div class="industrial-card rounded-3xl p-5 md:p-6">
+         <div class="flex justify-between items-center mb-2">
+         <div class="section-title">GERÇEKLEŞEN</div>
+         <i class="fa-solid fa-check-circle text-2xl text-emerald-400"></i>
       </div>
-    </div>
-
+    <div><span id="toplamGerceklesen" class="kpi-value text-white">0</span> <span class="text-lg text-[#666]">adet</span></div>
+  <div class="mt-2">
+    <div class="h-2 bg-[#222230] rounded-full"><div id="gerceklesenBar" class="h-2 bg-emerald-400 rounded-full transition-all" style="width:0%"></div></div>
+    <div id="gerceklesenYuzdeText" class="text-xs text-emerald-400 text-right mt-0.5">0%</div>
+  </div>
+</div>
     <!-- TAKIM / HAT VERİMLİLİKLERİ -->
     <div class="mb-6">
       <div class="flex items-center justify-between mb-3 px-1">
