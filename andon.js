@@ -280,6 +280,13 @@ function uiGuncelle(data) {
 
   if (hedefEl) hedefEl.innerText = (d.hedef || 0).toLocaleString("tr-TR");
   if (gerceklesenEl) gerceklesenEl.innerText = (d.gerceklesen || 0).toLocaleString("tr-TR");
+  const gerceklesenBarEl = document.getElementById("gerceklesenBar");
+  const gerceklesenYuzdeEl = document.getElementById("gerceklesenYuzdeText");
+
+    const gerceklesenYuzde = d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0;
+
+if (gerceklesenBarEl) gerceklesenBarEl.style.width = gerceklesenYuzde + "%";
+if (gerceklesenYuzdeEl) gerceklesenYuzdeEl.innerText = gerceklesenYuzde + "%";
   if (fireEl) fireEl.innerText = (d.fire || 0) + " Adet";
 
   const verim = d.verimlilik || (d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0);
