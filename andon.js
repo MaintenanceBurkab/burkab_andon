@@ -264,57 +264,55 @@ function durusSureVeRenkGuncelle() {
 // ==================== VERİ GÜNCELLEME ====================
 
 function uiGuncelle(data) {
-  console.log("🔄 uiGuncelle çağrıldı", data);
-  if (!data || !data.ok || !data.andonData) {
-    console.warn("Gelen veri hatalı:", data);
+  console.log("🔍 Gelen Andon Data:", data?.andonData);
+
+  if (!data || !data.andonData) {
+    console.error("❌ Andon verisi boş geldi!");
     return;
   }
 
   const d = data.andonData;
 
-  // KPI Güncelle
+  // Fire
+  const fireEl = document.getElementById("toplamFire");
+  if (fireEl) fireEl.innerText = (d.fire || 0);
+
+  const dunFireEl = document.getElementById("dunFire");
+  if (dunFireEl) dunFireEl.innerText = `Dün: ${d.dunFire || 0} adet`;
+
+  // KPI ve diğerleri (mevcut kodların)
   const hedefEl = document.getElementById("toplamHedef");
   const gerceklesenEl = document.getElementById("toplamGerceklesen");
-  const fireEl = document.getElementById("toplamFire");
   const verimEl = document.getElementById("verimlilikYuzde");
   const barEl = document.getElementById("verimlilikBar");
 
   if (hedefEl) hedefEl.innerText = (d.hedef || 0).toLocaleString("tr-TR");
   if (gerceklesenEl) gerceklesenEl.innerText = (d.gerceklesen || 0).toLocaleString("tr-TR");
+
+  const gerceklesenYuzde = d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0;
   const gerceklesenBarEl = document.getElementById("gerceklesenBar");
   const gerceklesenYuzdeEl = document.getElementById("gerceklesenYuzdeText");
 
-    const gerceklesenYuzde = d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0;
+  if (gerceklesenBarEl) gerceklesenBarEl.style.width = gerceklesenYuzde + "%";
+  if (gerceklesenYuzdeEl) gerceklesenYuzdeEl.innerText = gerceklesenYuzde + "%";
 
-if (gerceklesenBarEl) gerceklesenBarEl.style.width = gerceklesenYuzde + "%";
-if (gerceklesenYuzdeEl) gerceklesenYuzdeEl.innerText = gerceklesenYuzde + "%";
-  if (fireEl) fireEl.innerText = (d.fire || 0) + " Adet";
-
-  const verim = d.verimlilik || (d.hedef > 0 ? Math.round((d.gerceklesen / d.hedef) * 100) : 0);
-
-  if (verimEl) verimEl.innerText = verim + "%";
+  const verim = d.verimlilik || gerceklesenYuzde;
+  if (verimEl) verimEl.innerText = verim;
   if (barEl) {
     barEl.style.width = verim + "%";
     barEl.style.background = verim >= 90 ? "#4caf50" : verim >= 70 ? "#f59e0b" : "#ef4444";
   }
- 
-  // Takımları güncelle
+
+  // Takımlar
   if (d.takimlar && d.takimlar.length > 0) {
     guncelleTakimlar(d.takimlar);
   }
 
-  if (d.sonArizalar) {
-    guncelleDuruslar(d.sonArizalar);
-  }
-
-  // Verimlilik sesi
-  verimlilikSesiCal(verim);
+  // Duruşlar + Personel
+  guncelleKisaDuruslar(d.sonArizalar || []);
+  personelVerimCek();
 
   console.log("%c[Andon] Veri güncellendi", "color:#854d0e");
-}
-   guncelleKisaDuruslar(d.sonArizalar || []);
-   guncellePersonelVerim(d.personelVerim || []);
-   personelVerimCek();
 }
 // ==================== KAYAN DUYURU ====================
 
