@@ -264,6 +264,7 @@ function durusSureVeRenkGuncelle() {
 // ==================== VERİ GÜNCELLEME ====================
 
 function uiGuncelle(data) {
+  console.log("🔄 uiGuncelle çağrıldı", data);
   if (!data || !data.ok || !data.andonData) {
     console.warn("Gelen veri hatalı:", data);
     return;
@@ -406,23 +407,24 @@ function personelVerimCek() {
 }
 
 window.personelVerimGeldi = function(data) {
+  console.log("📊 Gelen Personel Verisi:", data); // Konsolda kontrol et
+
   if (!data || !data.ok || !Array.isArray(data.data)) {
-    console.warn("Personel verisi alınamadı");
+    console.warn("❌ Personel verisi alınamadı veya boş");
     return;
   }
 
   const personeller = data.data.map(row => ({
-    adSoyad: row['Ad Soyad'] || row['AdSoyad'] || 'Bilinmeyen',
-    takim: row['Takım'] || 'Üretim',
+    adSoyad: row['Ad Soyad'] || row['AdSoyad'] || row['ad soyad'] || 'Bilinmeyen',
+    takim: row['Takım'] || row['Takim'] || 'Üretim',
     verim: parseFloat(row['Verim %']) || parseFloat(row['Verim']) || 0,
-    saat: row['Saat'] || '',
-    proje: row['ProjeNo'] || ''
-  })).filter(p => p.verim > 0); // sadece verim olanları göster
+    saat: row['Saat'] || ''
+  })).filter(p => p.verim > 0);
 
+  console.log("✅ İşlenmiş personel sayısı:", personeller.length);
   guncellePersonelVerim(personeller);
 };
-
-// ==================== KISA DURUŞ LİSTESİ (değişmedi) ====================
+ // ==================== KISA DURUŞ LİSTESİ (değişmedi) ====================
 function guncelleKisaDuruslar(arizalar) {
   const container = document.getElementById("durusKisaListesi");
   const badge = document.getElementById("aktifDurusKisa");
