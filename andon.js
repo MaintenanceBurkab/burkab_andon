@@ -454,4 +454,36 @@ function guncelleKisaDuruslar(arizalar) {
   });
   container.innerHTML = html;
 }
+function guncellePersonelVerim(personeller) {
+  const container = document.getElementById("personelVerimListesi");
+  if (!container) return;
+
+  if (!personeller || personeller.length === 0) {
+    container.innerHTML = `<div class="text-center text-[#666] py-12">Henüz personel verisi yok</div>`;
+    return;
+  }
+
+  const sirali = [...personeller].sort((a, b) => b.verim - a.verim);
+
+  let html = "";
+  sirali.forEach(p => {
+    const renk = p.verim >= 90 ? "emerald" : p.verim >= 75 ? "amber" : "red";
+    html += `
+      <div class="flex items-center justify-between bg-[#1a1a24] px-4 py-3 rounded-2xl hover:bg-[#222230] transition-colors">
+        <div class="flex items-center gap-x-3">
+          <span class="text-xl">👤</span>
+          <div>
+            <div class="font-medium">${p.adSoyad}</div>
+            <div class="text-xs text-[#666]">${p.takim}</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-2xl font-black text-${renk}-400">${p.verim}</span>
+          <span class="text-${renk}-400 text-sm">%</span>
+        </div>
+      </div>`;
+  });
+
+  container.innerHTML = html;
+}
 window.onload = init;
