@@ -345,22 +345,18 @@ function duyuruGuncelle(data) {
   }
 }
 
-// ==================== KAYAN DUYURU (JavaScript ile - Daha Stabil) ====================
-
+// ==================== KAYAN DUYURU (JavaScript ile) ====================
 function baslatKayanDuyuru() {
   const duyuruEl = document.getElementById("duyuruAlani");
   if (!duyuruEl) return;
 
   let position = 0;
-  const speed = 0.8; // Kayma hızı (ne kadar küçükse o kadar yavaş)
+  const speed = 0.8;
 
   setInterval(() => {
     position -= speed;
     duyuruEl.style.transform = `translateX(${position}px)`;
-    verileriCek();
-  personelVerimCek();     // ← her 30 saniyede bir personel verisini de yenile
-}, 30000);
-     
+
     // Metin tamamen kayınca başa dön
     if (Math.abs(position) > duyuruEl.scrollWidth / 2) {
       position = 0;
