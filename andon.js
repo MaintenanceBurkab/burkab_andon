@@ -377,9 +377,11 @@ function init() {
   }, 1000);
 
   // İlk veri çek (KPI + Takım + Duruş)
+  setInterval(() => {
   verileriCek();
-  setInterval(verileriCek, 30000);
-
+  personelVerimCek();     // ← her 30 saniyede bir personel verisini de yenile
+}, 30000);
+  
   // Canlı duruş sayacı — 30sn'lik veri yenilemesinden bağımsız, her saniye çalışır
   setInterval(durusSureVeRenkGuncelle, 1000);
 
