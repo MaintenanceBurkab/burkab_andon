@@ -310,7 +310,10 @@ function uiGuncelle(data) {
   // Duruşlar + Personel
   guncelleKisaDuruslar(d.sonArizalar || []);
   personelVerimCek();
-
+  
+  // Personel Verimliliği
+  console.log("🔄 Personel verim çekiliyor...");
+  personelVerimCek();
   console.log("%c[Andon] Veri güncellendi", "color:#854d0e");
 }
 
@@ -409,6 +412,8 @@ function init() {
 
   // Veri çekme
   verileriCek();
+  personelVerimCek(); // ilk yüklemede de çek
+
   setInterval(() => {
     verileriCek();
     personelVerimCek();
