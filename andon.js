@@ -311,8 +311,9 @@ if (gerceklesenYuzdeEl) gerceklesenYuzdeEl.innerText = gerceklesenYuzde + "%";
 
   console.log("%c[Andon] Veri güncellendi", "color:#854d0e");
 }
- guncelleKisaDuruslar(d.sonArizalar || []);
-  guncellePersonelVerim(d.personelVerim || []);
+   guncelleKisaDuruslar(d.sonArizalar || []);
+   guncellePersonelVerim(d.personelVerim || []);
+   personelVerimCek();
 }
 // ==================== KAYAN DUYURU ====================
 
@@ -350,7 +351,10 @@ function baslatKayanDuyuru() {
   setInterval(() => {
     position -= speed;
     duyuruEl.style.transform = `translateX(${position}px)`;
-
+    verileriCek();
+  personelVerimCek();     // ← her 30 saniyede bir personel verisini de yenile
+}, 30000);
+     
     // Metin tamamen kayınca başa dön
     if (Math.abs(position) > duyuruEl.scrollWidth / 2) {
       position = 0;
@@ -390,7 +394,33 @@ function init() {
 
   console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
 }
-// ==================== KISA DURUŞ LİSTESİ ====================
+// ==================== PERSONEL VERİMLİLİĞİ ÇEKME (Sheets'e uyumlu) ====================
+
+function personelVerimCek() {
+  const url = `${GAS_ANDON_URL}?action=getPersonelVerim&sheet=PersonelVerim&callback=personelVerimGeldi&_t=${Date.now()}`;
+  const script = document.createElement('script');
+  script.src = url;
+  document.body.appendChild(script);
+}
+
+window.personelVerimGeldi = function(data) {
+  if (!data || !data.ok || !Array.isArray(data.data)) {
+    console.warn("Personel verisi alınamadı");
+    return;
+  }
+
+  const personeller = data.data.map(row => ({
+    adSoyad: row['Ad Soyad'] || row['AdSoyad'] || 'Bilinmeyen',
+    takim: row['Takım'] || 'Üretim',
+    verim: parseFloat(row['Verim %']) || parseFloat(row['Verim']) || 0,
+    saat: row['Saat'] || '',
+    proje: row['ProjeNo'] || ''
+  })).filter(p => p.verim > 0); // sadece verim olanları göster
+
+  guncellePersonelVerim(personeller);
+};
+
+// ==================== KISA DURUŞ LİSTESİ (değişmedi) ====================
 function guncelleKisaDuruslar(arizalar) {
   const container = document.getElementById("durusKisaListesi");
   const badge = document.getElementById("aktifDurusKisa");
@@ -404,50 +434,15 @@ function guncelleKisaDuruslar(arizalar) {
   if (badge) badge.innerHTML = `VAR (${arizalar.length})`;
 
   let html = "";
-  arizalar.slice(0, 5).forEach(a => {   // en fazla 5 tane
+  arizalar.slice(0, 5).forEach(a => {
     html += `
       <div class="flex justify-between items-center bg-[#1a1a24] px-4 py-2.5 rounded-2xl text-sm">
         <div class="flex-1">
-          <span class="font-medium">${a.makine}</span> — ${a.neden}
+          <span class="font-medium">${a.makine || a.Makine}</span> — ${a.neden || a.Neden}
         </div>
-        <div class="font-mono text-[#f59e0b] text-xs">${a.saat}</div>
+        <div class="font-mono text-[#f59e0b] text-xs">${a.saat || a.Saat}</div>
       </div>`;
   });
-  container.innerHTML = html;
-}
-
-// ==================== PERSONEL VERİMLİLİĞİ (AŞAĞI KAYAN) ====================
-function guncellePersonelVerim(personeller) {
-  const container = document.getElementById("personelVerimListesi");
-  if (!container) return;
-
-  if (!personeller || personeller.length === 0) {
-    container.innerHTML = `<div class="text-center text-[#666] py-12">Henüz veri yok</div>`;
-    return;
-  }
-
-  // Verimlilik sırasına göre sırala
-  const sirali = [...personeller].sort((a, b) => b.verim - a.verim);
-
-  let html = "";
-  sirali.forEach(p => {
-    const renk = p.verim >= 90 ? "emerald" : p.verim >= 75 ? "amber" : "red";
-    html += `
-      <div class="flex items-center justify-between bg-[#1a1a24] px-4 py-3 rounded-2xl hover:bg-[#222230] transition-colors">
-        <div class="flex items-center gap-x-3">
-          <span class="text-xl">👤</span>
-          <div>
-            <div class="font-medium">${p.adSoyad || p.ad}</div>
-            <div class="text-xs text-[#666]">${p.takim || 'Üretim'}</div>
-          </div>
-        </div>
-        <div class="text-right">
-          <span class="text-2xl font-black text-${renk}-400">${p.verim}</span>
-          <span class="text-${renk}-400 text-sm">%</span>
-        </div>
-      </div>`;
-  });
-
   container.innerHTML = html;
 }
 window.onload = init;
