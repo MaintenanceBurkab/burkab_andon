@@ -440,7 +440,7 @@ function personelVerimCek() {
 
 window.personelVerimGeldi = function(data) {
   console.log("📊 Gelen Personel Verisi:", data); // Konsolda kontrol et
-
+  console.log("📋 Raw data:", data?.data);
   if (!data || !data.ok || !Array.isArray(data.data)) {
     console.warn("❌ Personel verisi alınamadı veya boş");
     return;
