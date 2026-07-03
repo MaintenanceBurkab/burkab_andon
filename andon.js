@@ -303,12 +303,19 @@ function uiGuncelle(data) {
     barEl.style.background = verim >= 90 ? "#4caf50" : verim >= 70 ? "#f59e0b" : "#ef4444";
   }
 
-  // Takımlar
+    // Takımları güncelle
   if (d.takimlar && d.takimlar.length > 0) {
     guncelleTakimlar(d.takimlar);
   }
 
-  // Duruşlar + Personel
+  if (d.sonArizalar) {
+    guncelleDuruslar(d.sonArizalar);
+  }
+
+  // Verimlilik sesi
+  verimlilikSesiCal(verim);
+
+  // Duruşlar + Personel Verimliliği
   guncelleKisaDuruslar(d.sonArizalar || []);
   personelVerimCek();
 
