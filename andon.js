@@ -490,12 +490,15 @@ function guncellePersonelVerim(personeller) {
   if (!container) return;
 
   if (!personeller || personeller.length === 0) {
-    container.innerHTML = `<div class="text-center text-[#666] py-12">Henüz personel verisi yok</div>`;
-    return;
+    container.innerHTML = html + html;
+
+container.style.animation = "personelKaydir 25s linear infinite";
+container.style.willChange = "transform";
   }
 
   const sirali = [...personeller].sort((a, b) => b.verim - a.verim);
-
+container.style.animation = "none";
+void container.offsetWidth;
   let html = "";
   sirali.forEach(p => {
     const renk = p.verim >= 90 ? "emerald" : p.verim >= 75 ? "amber" : "red";
