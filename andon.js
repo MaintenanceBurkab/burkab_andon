@@ -296,9 +296,7 @@ if (gerceklesenYuzdeEl) gerceklesenYuzdeEl.innerText = gerceklesenYuzde + "%";
     barEl.style.width = verim + "%";
     barEl.style.background = verim >= 90 ? "#4caf50" : verim >= 70 ? "#f59e0b" : "#ef4444";
   }
-  guncelleKisaDuruslar(d.sonArizalar || []);
-  guncellePersonelVerim(d.personelVerim || []);
-}
+ 
   // Takımları güncelle
   if (d.takimlar && d.takimlar.length > 0) {
     guncelleTakimlar(d.takimlar);
@@ -313,7 +311,9 @@ if (gerceklesenYuzdeEl) gerceklesenYuzdeEl.innerText = gerceklesenYuzde + "%";
 
   console.log("%c[Andon] Veri güncellendi", "color:#854d0e");
 }
-
+ guncelleKisaDuruslar(d.sonArizalar || []);
+  guncellePersonelVerim(d.personelVerim || []);
+}
 // ==================== KAYAN DUYURU ====================
 
 function duyurulariGetir() {
