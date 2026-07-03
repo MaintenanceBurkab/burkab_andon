@@ -413,12 +413,7 @@ function init() {
   verileriCek();
   personelVerimCek(); // ilk yüklemede de çek
 
-  setInterval(() => {
-    verileriCek();
-    personelVerimCek();
-  }, 30000);
-
-  // Canlı duruş sayacı
+   // Canlı duruş sayacı
   setInterval(durusSureVeRenkGuncelle, 1000);
 
   // Kayan duyuru
