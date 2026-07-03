@@ -296,7 +296,9 @@ if (gerceklesenYuzdeEl) gerceklesenYuzdeEl.innerText = gerceklesenYuzde + "%";
     barEl.style.width = verim + "%";
     barEl.style.background = verim >= 90 ? "#4caf50" : verim >= 70 ? "#f59e0b" : "#ef4444";
   }
-
+  guncelleKisaDuruslar(d.sonArizalar || []);
+  guncellePersonelVerim(d.personelVerim || []);
+}
   // Takımları güncelle
   if (d.takimlar && d.takimlar.length > 0) {
     guncelleTakimlar(d.takimlar);
@@ -388,5 +390,64 @@ function init() {
 
   console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
 }
+// ==================== KISA DURUŞ LİSTESİ ====================
+function guncelleKisaDuruslar(arizalar) {
+  const container = document.getElementById("durusKisaListesi");
+  const badge = document.getElementById("aktifDurusKisa");
 
+  if (!arizalar || arizalar.length === 0) {
+    container.innerHTML = `<div class="text-emerald-400 py-6 text-center">✅ Bugün aktif duruş yok</div>`;
+    if (badge) badge.innerHTML = `YOK ✓`;
+    return;
+  }
+
+  if (badge) badge.innerHTML = `VAR (${arizalar.length})`;
+
+  let html = "";
+  arizalar.slice(0, 5).forEach(a => {   // en fazla 5 tane
+    html += `
+      <div class="flex justify-between items-center bg-[#1a1a24] px-4 py-2.5 rounded-2xl text-sm">
+        <div class="flex-1">
+          <span class="font-medium">${a.makine}</span> — ${a.neden}
+        </div>
+        <div class="font-mono text-[#f59e0b] text-xs">${a.saat}</div>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ==================== PERSONEL VERİMLİLİĞİ (AŞAĞI KAYAN) ====================
+function guncellePersonelVerim(personeller) {
+  const container = document.getElementById("personelVerimListesi");
+  if (!container) return;
+
+  if (!personeller || personeller.length === 0) {
+    container.innerHTML = `<div class="text-center text-[#666] py-12">Henüz veri yok</div>`;
+    return;
+  }
+
+  // Verimlilik sırasına göre sırala
+  const sirali = [...personeller].sort((a, b) => b.verim - a.verim);
+
+  let html = "";
+  sirali.forEach(p => {
+    const renk = p.verim >= 90 ? "emerald" : p.verim >= 75 ? "amber" : "red";
+    html += `
+      <div class="flex items-center justify-between bg-[#1a1a24] px-4 py-3 rounded-2xl hover:bg-[#222230] transition-colors">
+        <div class="flex items-center gap-x-3">
+          <span class="text-xl">👤</span>
+          <div>
+            <div class="font-medium">${p.adSoyad || p.ad}</div>
+            <div class="text-xs text-[#666]">${p.takim || 'Üretim'}</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-2xl font-black text-${renk}-400">${p.verim}</span>
+          <span class="text-${renk}-400 text-sm">%</span>
+        </div>
+      </div>`;
+  });
+
+  container.innerHTML = html;
+}
 window.onload = init;
