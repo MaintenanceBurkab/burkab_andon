@@ -262,7 +262,6 @@ function durusSureVeRenkGuncelle() {
 }
 
 // ==================== VERİ GÜNCELLEME ====================
-
 function uiGuncelle(data) {
   console.log("🔍 Gelen Andon Data:", data?.andonData);
 
@@ -280,7 +279,7 @@ function uiGuncelle(data) {
   const dunFireEl = document.getElementById("dunFire");
   if (dunFireEl) dunFireEl.innerText = `Dün: ${d.dunFire || 0} adet`;
 
-  // KPI ve diğerleri (mevcut kodların)
+  // KPI'lar
   const hedefEl = document.getElementById("toplamHedef");
   const gerceklesenEl = document.getElementById("toplamGerceklesen");
   const verimEl = document.getElementById("verimlilikYuzde");
@@ -303,24 +302,53 @@ function uiGuncelle(data) {
     barEl.style.background = verim >= 90 ? "#4caf50" : verim >= 70 ? "#f59e0b" : "#ef4444";
   }
 
-    // Takımları güncelle
+  // Takımlar
   if (d.takimlar && d.takimlar.length > 0) {
     guncelleTakimlar(d.takimlar);
   }
 
-  if (d.sonArizalar) {
-    guncelleDuruslar(d.sonArizalar);
-  }
-
-  // Verimlilik sesi
-  verimlilikSesiCal(verim);
-
-  // Duruşlar + Personel Verimliliği
+  // Duruşlar + Personel
   guncelleKisaDuruslar(d.sonArizalar || []);
   personelVerimCek();
 
   console.log("%c[Andon] Veri güncellendi", "color:#854d0e");
 }
+
+// ==================== BAŞLAT ====================
+function init() {
+  sesButonuOlustur();
+
+  // Saat
+  setInterval(() => {
+    const now = new Date();
+    const saatEl = document.getElementById("andonSaat");
+    const tarihEl = document.getElementById("andonTarih");
+    if (saatEl) saatEl.innerText = now.toLocaleTimeString("tr-TR", { hour12: false });
+    if (tarihEl) tarihEl.innerText = now.toLocaleDateString("tr-TR");
+  }, 1000);
+
+  // Veri çekme
+  verileriCek();
+  setInterval(() => {
+    verileriCek();
+    personelVerimCek();
+  }, 30000);
+
+  // Canlı duruş sayacı
+  setInterval(durusSureVeRenkGuncelle, 1000);
+
+  // Kayan duyuru
+  duyurulariGetir();
+  setInterval(duyurulariGetir, 30000);
+
+  setTimeout(() => {
+    baslatKayanDuyuru();
+  }, 1200);
+
+  console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
+}
+
+window.onload = init;
 // ==================== KAYAN DUYURU ====================
 
 function duyurulariGetir() {
@@ -366,6 +394,7 @@ function baslatKayanDuyuru() {
 
 // ==================== BAŞLAT ====================
 
+// ==================== BAŞLAT ====================
 function init() {
   sesButonuOlustur();
 
@@ -378,26 +407,28 @@ function init() {
     if (tarihEl) tarihEl.innerText = now.toLocaleDateString("tr-TR");
   }, 1000);
 
-  // İlk veri çek (KPI + Takım + Duruş)
-  setInterval(() => {
+  // Veri çekme
   verileriCek();
-  personelVerimCek();     // ← her 30 saniyede bir personel verisini de yenile
-}, 30000);
-  
-  // Canlı duruş sayacı — 30sn'lik veri yenilemesinden bağımsız, her saniye çalışır
+  setInterval(() => {
+    verileriCek();
+    personelVerimCek();
+  }, 30000);
+
+  // Canlı duruş sayacı
   setInterval(durusSureVeRenkGuncelle, 1000);
 
-  // Kayan duyuru verisi çek
+  // Kayan duyuru
   duyurulariGetir();
   setInterval(duyurulariGetir, 30000);
 
-  // Kayan animasyonu başlat (JavaScript ile)
   setTimeout(() => {
     baslatKayanDuyuru();
   }, 1200);
 
   console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
 }
+
+window.onload = init;
 // ==================== PERSONEL VERİMLİLİĞİ ÇEKME (Sheets'e uyumlu) ====================
 
 function personelVerimCek() {
