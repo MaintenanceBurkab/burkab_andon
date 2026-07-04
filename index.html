@@ -44,6 +44,22 @@
       transform: translateX(-50%);
     }
   }
+#personelVerimWrapper {
+  position: relative;
+}
+
+#personelVerimListesi {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@keyframes personelKaydir {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+
+    
 </style>
   </style>
 </head>
@@ -163,10 +179,10 @@
       <div class="px-5 md:px-6 pt-4 pb-3 border-b border-[#222230]">
         <span class="section-title">👷 PERSONEL VERİMLİLİĞİ (Son 30 dk)</span>
       </div>
-      <div class="flex-1 overflow-hidden">
-          <div id="personelVerimListesi"
-         class="p-4">
-    </div>
+      <div id="personelVerimWrapper" class="flex-1 overflow-hidden">
+  <div id="personelVerimListesi" class="p-4">
+  </div>
+</div>
 
 </div>
     </div>
