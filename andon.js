@@ -1,6 +1,6 @@
 // ==================== ANDON.JS v5.4 (BASE64 SESLİ - TEMİZ) ====================
 
-const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbyJYQaTSyhgqZA_CI8V6o-NOBgRLUNK0ozMRyNEpKk1p8tUZUaQV5iUJ3pAarBaVanK/exec";
+const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbw-uC2sCMHFTe98XopKeyF75d0rTxiY3TChPlhbjvHeTHDYh6EmUREFT__sX4ZFogAv/exec";
 
 // ==================== SES SİSTEMİ ====================
 let sesAktif = false;
