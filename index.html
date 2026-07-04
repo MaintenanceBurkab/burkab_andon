@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BURKAB A.Ş — ANDON PANELİ v5.4</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    .industrial-card {
+      background-color: #13131a;
+      border: 2px solid #222230;
+    }
+    .team-card {
+      background-color: #1a1a24;
+      border: 1px solid #2a2a38;
+    }
+    .durus-row {
+      background-color: #1a1a24;
+      border-left: 5px solid #f59e0b;
+    }
+    .header-gold { border-bottom: 4px solid #f5c400; }
+    .section-title {
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      color: #666;
+      text-transform: uppercase;
+    }
+    .kpi-value {
+      font-size: 2.9rem;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    @keyframes kayanYazi {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    #personelVerimWrapper {
+      position: relative;
+    }
+
+    #personelVerimListesi {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @keyframes personelKaydir {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-50%); }
+    }
+  </style>
+</head>
+<body class="bg-[#0a0a0e] text-white">
+
+  <!-- HEADER -->
+  <header class="bg-[#0f0f14] header-gold px-5 md:px-8 py-4 md:py-5">
+    <div class="max-w-[1600px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
+        <div>
+          <div class="text-[#f5c400] text-2xl md:text-3xl font-black tracking-[-1px]">BURKAB A.Ş.</div>
+          <div class="text-[#666] text-xs md:text-sm font-medium tracking-[2px] -mt-1">ÜRETİM TAKİP SİSTEMİ v5.4</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-xl md:text-2xl font-bold tracking-[2px] md:tracking-[3px]">CANLI VERİ PANELİ</div>
+          <div class="text-emerald-400 text-[10px] md:text-xs font-medium tracking-widest mt-0.5 flex items-center justify-center gap-x-1.5">
+            <i class="fa-solid fa-sync fa-spin-pulse"></i>
+            <span>OTOMATİK YENİLENİR — 30 SANİYEDE BİR</span>
+          </div>
+          <div style="font-size:9.5px; font-weight:700; letter-spacing:1.5px; background:linear-gradient(90deg,#b8860b,#f5c400,#ffd700,#f5c400,#b8860b); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-transform:uppercase; margin-top:2px;">
+            ✦ Created by Maintenance Team ✦
+          </div>
+        </div>
+
+        <div class="text-center md:text-right">
+          <div id="andonSaat" class="font-mono text-3xl md:text-4xl font-black text-[#f5c400] tabular-nums">10:55:21</div>
+          <div id="andonTarih" class="text-[#888] text-xs md:text-sm tracking-widest">28.06.2026</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-[1600px] mx-auto px-4 md:px-8 pt-5 pb-8">
+
+    <!-- KPI LAR -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-6">
+      <div class="industrial-card rounded-3xl p-5 md:p-6">
+        <div class="flex justify-between items-center mb-2">
+          <div class="section-title">VARDİYA HEDEFİ</div>
+          <i class="fa-solid fa-bullseye text-2xl text-[#3b82f6]"></i>
+        </div>
+        <div><span id="toplamHedef" class="kpi-value text-[#3b82f6]">1240</span> <span class="text-lg text-[#666]">adet</span></div>
+      </div>
+
+      <div class="industrial-card rounded-3xl p-5 md:p-6">
+        <div class="flex justify-between items-center mb-2">
+          <div class="section-title">GERÇEKLEŞEN</div>
+          <i class="fa-solid fa-check-circle text-2xl text-emerald-400"></i>
+        </div>
+        <div><span id="toplamGerceklesen" class="kpi-value text-white">0</span> <span class="text-lg text-[#666]">adet</span></div>
+        <div class="mt-2">
+          <div class="h-2 bg-[#222230] rounded-full"><div id="gerceklesenBar" class="h-2 bg-emerald-400 rounded-full transition-all" style="width:0%"></div></div>
+          <div id="gerceklesenYuzdeText" class="text-xs text-emerald-400 text-right mt-0.5">0%</div>
+        </div>
+      </div>
+
+      <div class="industrial-card rounded-3xl p-5 md:p-6">
+        <div class="flex justify-between items-center mb-2">
+          <div class="section-title">GENEL VERİMLİLİK</div>
+          <i class="fa-solid fa-tachometer-alt text-2xl text-[#f5c400]"></i>
+        </div>
+        <div><span id="verimlilikYuzde" class="kpi-value text-[#f5c400]">77</span> <span class="text-2xl text-[#f5c400]">%</span></div>
+        <div class="mt-2"><div class="h-2.5 bg-[#222230] rounded-full"><div id="verimlilikBar" class="h-2.5 bg-[#f5c400] rounded-full transition-all" style="width:77%"></div></div></div>
+      </div>
+    </div>
+
+    <!-- TAKIM / HAT VERİMLİLİKLERİ -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between mb-3 px-1">
+        <span class="section-title">TAKIM / HAT VERİMLİLİKLERİ</span>
+        <span class="text-xs text-[#666]">Son 30 dakika • Otomatik güncellenir</span>
+      </div>
+      <div id="takimContainer"
+           class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
+        <!-- andon.js burayı dinamik dolduracak -->
+      </div>
+    </div>
+
+    <!-- FIRE + DURUŞ + PERSONEL VERİMLİLİĞİ -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
+
+      <!-- TOPLAM FIRE (aynı kalıyor) -->
+      <div class="lg:col-span-2">
+        <div class="industrial-card rounded-3xl p-5 h-full flex flex-col">
+          <div class="flex items-center gap-x-2 mb-3">
+            <i class="fa-solid fa-fire text-2xl text-red-500"></i>
+            <div class="section-title">TOPLAM FIRE</div>
+          </div>
+          <div class="flex-1 flex flex-col justify-center items-center text-center">
+            <div id="toplamFire" class="text-[3.8rem] font-black text-red-500 tabular-nums leading-none">0</div>
+            <div class="text-red-400 text-lg font-semibold -mt-1">ADET</div>
+          </div>
+          <div class="pt-3 border-t border-[#222230] text-center text-xs text-red-400" id="dunFire">Dün: 0 adet</div>
+        </div>
+      </div>
+
+      <!-- DURUŞLAR (KISALTILMIŞ) -->
+      <div class="lg:col-span-5">
+        <div class="industrial-card rounded-3xl overflow-hidden h-full flex flex-col">
+          <div class="px-5 md:px-6 pt-4 pb-3 flex items-center justify-between border-b border-[#222230]">
+            <div class="flex items-center gap-x-3">
+              <i class="fa-solid fa-exclamation-triangle text-[#f59e0b]"></i>
+              <span class="section-title">BUGÜNKÜ DURUŞLAR</span>
+            </div>
+            <div id="aktifDurusKisa" class="px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-bold">YOK ✓</div>
+          </div>
+          <div id="durusKisaListesi" class="p-4 space-y-2 text-sm max-h-[260px] overflow-y-auto custom-scroll">
+            <!-- JS dolduracak - kısa liste -->
+          </div>
+        </div>
+      </div>
+
+      <!-- PERSONEL VERİMLİLİĞİ (YUKARI KAYAN) -->
+      <div class="lg:col-span-5">
+        <div class="industrial-card rounded-3xl overflow-hidden h-full flex flex-col">
+          <div class="px-5 md:px-6 pt-4 pb-3 border-b border-[#222230]">
+            <span class="section-title">👷 PERSONEL VERİMLİLİĞİ (Son 30 dk)</span>
+          </div>
+          <div id="personelVerimWrapper" class="flex-1 overflow-hidden">
+            <div id="personelVerimListesi" class="p-4">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- KAYAN DUYURU -->
+  <div class="fixed bottom-0 left-0 right-0 bg-[#f5c400] text-black h-[52px] flex items-center z-50">
+    <div class="max-w-[1600px] mx-auto w-full px-5 flex items-center gap-x-4 overflow-hidden">
+
+      <div class="font-black text-lg tracking-wider flex items-center gap-x-2 shrink-0">
+        <i class="fa-solid fa-bell"></i>
+        <span>DUYURU</span>
+      </div>
+
+      <div class="flex-1 overflow-hidden">
+        <div id="duyuruAlani"
+             style="display: inline-block; white-space: nowrap; animation: kayanYazi 22s linear infinite; font-weight: 700; font-size: 15px;">
+          <!-- andon.js burayı dolduracak -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="andon.js"></script>
+</body>
+</html>
