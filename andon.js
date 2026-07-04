@@ -331,6 +331,8 @@ function init() {
 
   // Veri çekme
   verileriCek();
+  personelVerimCek(); // ilk yüklemede de çek
+
   setInterval(() => {
     verileriCek();
     personelVerimCek();
@@ -351,8 +353,8 @@ function init() {
 }
 
 window.onload = init;
-// ==================== KAYAN DUYURU ====================
 
+// ==================== KAYAN DUYURU ====================
 function duyurulariGetir() {
   const url = `${GAS_ANDON_URL}?action=getDuyurular&callback=duyuruGuncelle&_t=${Date.now()}`;
   const script = document.createElement('script');
@@ -394,42 +396,7 @@ function baslatKayanDuyuru() {
   }, 30);
 }
 
-// ==================== BAŞLAT ====================
-
-// ==================== BAŞLAT ====================
-function init() {
-  sesButonuOlustur();
-
-  // Saat
-  setInterval(() => {
-    const now = new Date();
-    const saatEl = document.getElementById("andonSaat");
-    const tarihEl = document.getElementById("andonTarih");
-    if (saatEl) saatEl.innerText = now.toLocaleTimeString("tr-TR", { hour12: false });
-    if (tarihEl) tarihEl.innerText = now.toLocaleDateString("tr-TR");
-  }, 1000);
-
-  // Veri çekme
-  verileriCek();
-  personelVerimCek(); // ilk yüklemede de çek
-
-   // Canlı duruş sayacı
-  setInterval(durusSureVeRenkGuncelle, 1000);
-
-  // Kayan duyuru
-  duyurulariGetir();
-  setInterval(duyurulariGetir, 30000);
-
-  setTimeout(() => {
-    baslatKayanDuyuru();
-  }, 1200);
-
-  console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
-}
-
-window.onload = init;
 // ==================== PERSONEL VERİMLİLİĞİ ÇEKME (Sheets'e uyumlu) ====================
-
 function personelVerimCek() {
   const url = `${GAS_ANDON_URL}?action=getPersonelVerim&sheet=PersonelVerim&callback=personelVerimGeldi&_t=${Date.now()}`;
   const script = document.createElement('script');
@@ -438,7 +405,7 @@ function personelVerimCek() {
 }
 
 window.personelVerimGeldi = function(data) {
-  console.log("📊 Gelen Personel Verisi:", data); // Konsolda kontrol et
+  console.log('📊 Gelen Personel Verisi:', data); // Konsolda kontrol et
   console.log("📋 Raw data:", data?.data);
   if (!data || !data.ok || !Array.isArray(data.data)) {
     console.warn("❌ Personel verisi alınamadı veya boş");
@@ -455,7 +422,8 @@ window.personelVerimGeldi = function(data) {
   console.log("✅ İşlenmiş personel sayısı:", personeller.length);
   guncellePersonelVerim(personeller);
 };
- // ==================== KISA DURUŞ LİSTESİ (değişmedi) ====================
+
+// ==================== KISA DURUŞ LİSTESİ (değişmedi) ====================
 function guncelleKisaDuruslar(arizalar) {
   const container = document.getElementById("durusKisaListesi");
   const badge = document.getElementById("aktifDurusKisa");
@@ -480,20 +448,20 @@ function guncelleKisaDuruslar(arizalar) {
   });
   container.innerHTML = html;
 }
+
+// ==================== PERSONEL VERİM LİSTESİ (Yukarı Kayan) ====================
 function guncellePersonelVerim(personeller) {
   const container = document.getElementById("personelVerimListesi");
   if (!container) return;
 
   if (!personeller || personeller.length === 0) {
-    container.innerHTML = html + html;
-
-container.style.animation = "personelKaydir 25s linear infinite";
-container.style.willChange = "transform";
+    container.style.animation = "none";
+    container.innerHTML = `<div class="text-[#666] py-6 text-center">Veri bulunamadı</div>`;
+    return;
   }
 
   const sirali = [...personeller].sort((a, b) => b.verim - a.verim);
-container.style.animation = "none";
-void container.offsetWidth;
+
   let html = "";
   sirali.forEach(p => {
     const renk = p.verim >= 90 ? "emerald" : p.verim >= 75 ? "amber" : "red";
@@ -513,6 +481,11 @@ void container.offsetWidth;
       </div>`;
   });
 
-  container.innerHTML = html;
+  // Animasyonu sıfırla, içeriği ikiye katlayarak kesintisiz kaydırma efekti sağla
+  container.style.animation = "none";
+  container.innerHTML = html + html;
+  void container.offsetWidth; // reflow tetikle
+  container.style.willChange = "transform";
+  container.style.animation = "personelKaydir 25s linear infinite";
 }
 window.onload = init;
