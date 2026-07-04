@@ -35,29 +35,16 @@
       font-weight: 800;
     }
 
-    @keyframes kayanYazi {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
+  <style>
+  @keyframes kayanYazi {
+    0% {
+      transform: translateX(0);
     }
-
-    #personelVerimWrapper {
-      position: relative;
+    100% {
+      transform: translateX(-50%);
     }
-
-    #personelVerimListesi {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    @keyframes personelKaydir {
-      from { transform: translateY(0); }
-      to   { transform: translateY(-50%); }
-    }
+  }
+</style>
   </style>
 </head>
 <body class="bg-[#0a0a0e] text-white">
@@ -136,75 +123,67 @@
       </div>
     </div>
 
-    <!-- FIRE + DURUŞ + PERSONEL VERİMLİLİĞİ -->
+    <!-- FIRE + DURUŞLAR -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
-
-      <!-- TOPLAM FIRE (aynı kalıyor) -->
+      
+      <!-- TOPLAM FIRE -->
       <div class="lg:col-span-2">
         <div class="industrial-card rounded-3xl p-5 h-full flex flex-col">
-          <div class="flex items-center gap-x-2 mb-3">
+          <div class="flex items-center gap-x-2 mb-2">
             <i class="fa-solid fa-fire text-2xl text-red-500"></i>
             <div class="section-title">TOPLAM FIRE</div>
           </div>
           <div class="flex-1 flex flex-col justify-center items-center text-center">
-            <div id="toplamFire" class="text-[3.8rem] font-black text-red-500 tabular-nums leading-none">0</div>
+            <div id="toplamFire" class="text-[3.8rem] font-black text-red-500 tabular-nums leading-none">47</div>
             <div class="text-red-400 text-lg font-semibold -mt-1">ADET</div>
           </div>
-          <div class="pt-3 border-t border-[#222230] text-center text-xs text-red-400" id="dunFire">Dün: 0 adet</div>
+          <div class="pt-3 border-t border-[#222230] text-center text-xs text-red-400">Dün: 32 adet</div>
         </div>
       </div>
 
-      <!-- DURUŞLAR (KISALTILMIŞ) -->
-      <div class="lg:col-span-5">
+      <!-- DURUŞLAR -->
+      <div class="lg:col-span-10">
         <div class="industrial-card rounded-3xl overflow-hidden h-full flex flex-col">
           <div class="px-5 md:px-6 pt-4 pb-3 flex items-center justify-between border-b border-[#222230]">
             <div class="flex items-center gap-x-3">
               <i class="fa-solid fa-exclamation-triangle text-[#f59e0b]"></i>
               <span class="section-title">BUGÜNKÜ DURUŞLAR</span>
             </div>
-            <div id="aktifDurusKisa" class="px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-bold">YOK ✓</div>
-          </div>
-          <div id="durusKisaListesi" class="p-4 space-y-2 text-sm max-h-[260px] overflow-y-auto custom-scroll">
-            <!-- JS dolduracak - kısa liste -->
-          </div>
-        </div>
-      </div>
-
-      <!-- PERSONEL VERİMLİLİĞİ (YUKARI KAYAN) -->
-      <div class="lg:col-span-5">
-        <div class="industrial-card rounded-3xl overflow-hidden h-full flex flex-col">
-          <div class="px-5 md:px-6 pt-4 pb-3 border-b border-[#222230]">
-            <span class="section-title">👷 PERSONEL VERİMLİLİĞİ (Son 30 dk)</span>
-          </div>
-          <div id="personelVerimWrapper" class="flex-1 overflow-hidden">
-            <div id="personelVerimListesi" class="p-4">
+            <div id="aktifDurus"
+                 class="px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs md:text-sm font-bold flex items-center gap-x-2">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              </span>
+              <span>YOK ✓</span>
             </div>
           </div>
+          <div id="durusListesi" class="p-4 space-y-2 text-sm">
+            <!-- andon.js burayı dinamik dolduracak -->
+          </div>
         </div>
       </div>
-
     </div>
-
   </div>
 
   <!-- KAYAN DUYURU -->
-  <div class="fixed bottom-0 left-0 right-0 bg-[#f5c400] text-black h-[52px] flex items-center z-50">
-    <div class="max-w-[1600px] mx-auto w-full px-5 flex items-center gap-x-4 overflow-hidden">
-
-      <div class="font-black text-lg tracking-wider flex items-center gap-x-2 shrink-0">
-        <i class="fa-solid fa-bell"></i>
-        <span>DUYURU</span>
-      </div>
-
-      <div class="flex-1 overflow-hidden">
-        <div id="duyuruAlani"
-             style="display: inline-block; white-space: nowrap; animation: kayanYazi 22s linear infinite; font-weight: 700; font-size: 15px;">
-          <!-- andon.js burayı dolduracak -->
-        </div>
-      </div>
-
+<div class="fixed bottom-0 left-0 right-0 bg-[#f5c400] text-black h-[52px] flex items-center z-50">
+  <div class="max-w-[1600px] mx-auto w-full px-5 flex items-center gap-x-4 overflow-hidden">
+    
+    <div class="font-black text-lg tracking-wider flex items-center gap-x-2 shrink-0">
+      <i class="fa-solid fa-bell"></i>
+      <span>DUYURU</span>
     </div>
+
+    <div class="flex-1 overflow-hidden">
+      <div id="duyuruAlani"
+           style="display: inline-block; white-space: nowrap; animation: kayanYazi 22s linear infinite; font-weight: 700; font-size: 15px;">
+        <!-- andon.js burayı dolduracak -->
+      </div>
+    </div>
+
   </div>
+</div>
 
   <script src="andon.js"></script>
 </body>
