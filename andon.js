@@ -388,7 +388,14 @@ function init() {
 
   console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
 }
-// ══════ GEÇİCİ TEST KODU — TEST BİTİNCE ESKİ HALİNE DÖNDÜRÜN ══════
+// ══════════════════════════════════════════════
+// TRT FM OTOMATİK YAYIN (09:30-10:30 ve 13:00-14:00, Cts/Paz hariç)
+// ══════════════════════════════════════════════
+var TRT_FM_URL = 'https://radio-trtfm.live.trt.com.tr/master.m3u8';
+var trtHls = null;
+var trtCalıyor = false;
+
+/ ══════ GEÇİCİ TEST KODU — TEST BİTİNCE ESKİ HALİNE DÖNDÜRÜN ══════
 var TRT_TEST_BASLANGIC = new Date(Date.now() + 10*60000); // şu an + 10 dakika
 var TRT_TEST_BITIS      = new Date(Date.now() + 20*60000); // şu an + 20 dakika
 
@@ -410,5 +417,35 @@ function trtYayinDurumuKontrolEt() {
 
 // Her 10 saniyede bir kontrol et (test için sık kontrol)
 setInterval(trtYayinDurumuKontrolEt, 10000);
+trtYayinDurumuKontrolEt();
+function trtBaslat() {
+  const audio = document.getElementById('trtRadyoPlayer');
+  if (!audio) return;
+
+  if (Hls.isSupported()) {
+    if (trtHls) trtHls.destroy();
+    trtHls = new Hls();
+    trtHls.loadSource(TRT_FM_URL);
+    trtHls.attachMedia(audio);
+    trtHls.on(Hls.Events.MANIFEST_PARSED, function() {
+      audio.play().then(() => { trtCalıyor = true; console.log('📻 TRT FM yayına başladı'); })
+        .catch(e => console.warn('Otomatik oynatma engellendi:', e.message));
+    });
+  } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+    audio.src = TRT_FM_URL;
+    audio.play().then(() => { trtCalıyor = true; }).catch(e => console.warn(e.message));
+  }
+}
+
+function trtDurdur() {
+  const audio = document.getElementById('trtRadyoPlayer');
+  if (audio) { audio.pause(); audio.src = ''; }
+  if (trtHls) { trtHls.destroy(); trtHls = null; }
+  trtCalıyor = false;
+}
+
+// Her dakika kontrol et
+setInterval(trtYayinDurumuKontrolEt, 60000);
+// Sayfa açılışında da bir kere kontrol et
 trtYayinDurumuKontrolEt();
 window.onload = init;
