@@ -388,5 +388,64 @@ function init() {
 
   console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
 }
+// ══════════════════════════════════════════════
+// TRT FM OTOMATİK YAYIN (09:30-10:30 ve 13:00-14:00, Cts/Paz hariç)
+// ══════════════════════════════════════════════
+var TRT_FM_URL = 'https://radio-trtfm.live.trt.com.tr/master.m3u8';
+var trtHls = null;
+var trtCalıyor = false;
 
+function trtYayinDurumuKontrolEt() {
+  const simdi = new Date();
+  const gun = simdi.getDay(); // 0=Pazar, 6=Cumartesi
+  if (gun === 0 || gun === 6) { trtDurdur(); return; }
+
+  const saat = simdi.getHours();
+  const dakika = simdi.getMinutes();
+  const toplamDk = saat * 60 + dakika;
+
+  const araliklar = [
+    { baslangic: 9*60+30, bitis: 10*60+30 },
+    { baslangic: 13*60,   bitis: 14*60    }
+  ];
+
+  const yayindaOlmali = araliklar.some(a => toplamDk >= a.baslangic && toplamDk < a.bitis);
+
+  if (yayindaOlmali && !trtCalıyor) {
+    trtBaslat();
+  } else if (!yayindaOlmali && trtCalıyor) {
+    trtDurdur();
+  }
+}
+
+function trtBaslat() {
+  const audio = document.getElementById('trtRadyoPlayer');
+  if (!audio) return;
+
+  if (Hls.isSupported()) {
+    if (trtHls) trtHls.destroy();
+    trtHls = new Hls();
+    trtHls.loadSource(TRT_FM_URL);
+    trtHls.attachMedia(audio);
+    trtHls.on(Hls.Events.MANIFEST_PARSED, function() {
+      audio.play().then(() => { trtCalıyor = true; console.log('📻 TRT FM yayına başladı'); })
+        .catch(e => console.warn('Otomatik oynatma engellendi:', e.message));
+    });
+  } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+    audio.src = TRT_FM_URL;
+    audio.play().then(() => { trtCalıyor = true; }).catch(e => console.warn(e.message));
+  }
+}
+
+function trtDurdur() {
+  const audio = document.getElementById('trtRadyoPlayer');
+  if (audio) { audio.pause(); audio.src = ''; }
+  if (trtHls) { trtHls.destroy(); trtHls = null; }
+  trtCalıyor = false;
+}
+
+// Her dakika kontrol et
+setInterval(trtYayinDurumuKontrolEt, 60000);
+// Sayfa açılışında da bir kere kontrol et
+trtYayinDurumuKontrolEt();
 window.onload = init;
