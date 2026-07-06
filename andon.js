@@ -391,50 +391,50 @@ function init() {
 }
 
 
-var _FM_URL = 'https://radio-trtfm.live.trt.com.tr/master.m3u8';
-var trtHls = null;
-var trtCalıyor = false;
+//var _FM_URL = 'https://radio-trtfm.live.trt.com.tr/master.m3u8';
+//var trtHls = null;
+//var trtCalıyor = false;
 
-function trtBaslat() {
-  const audio = document.getElementById('trtRadyoPlayer');
-  if (!audio) return;
-  if (Hls.isSupported()) {
-    if (trtHls) trtHls.destroy();
-    trtHls = new Hls();
-    trtHls.loadSource(_FM_URL);
-    trtHls.attachMedia(audio);
-    trtHls.on(Hls.Events.MANIFEST_PARSED, function() {
-      audio.play().then(() => {
-        trtCalıyor = true;
-        console.log('📻 TRT FM yayına başladı');
-      }).catch(e => console.warn('Otomatik oynatma engellendi:', e.message));
-    });
-  } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
-    audio.src = _FM_URL;
-    audio.play().then(() => { trtCalıyor = true; }).catch(e => console.warn(e.message));
-  }
-}
+//function trtBaslat() {
+ // const audio = document.getElementById('trtRadyoPlayer');
+//  if (!audio) return;
+//  if (Hls.isSupported()) {
+//   if (trtHls) trtHls.destroy();
+//   trtHls = new Hls();
+  //  trtHls.loadSource(_FM_URL);
+  //  trtHls.attachMedia(audio);
+   // trtHls.on(Hls.Events.MANIFEST_PARSED, function() {
+     // audio.play().then(() => {
+        //trtCalıyor = true;
+      //  console.log('📻 TRT FM yayına başladı');
+    //  }).catch(e => console.warn('Otomatik oynatma engellendi:', e.message));
+  //  });
+//  } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+ //   audio.src = _FM_URL;
+//    audio.play().then(() => { trtCalıyor = true; }).catch(e => console.warn(e.message));
+////  }
+/}
 
-function trtDurdur() {
-  const audio = document.getElementById('trtRadyoPlayer');
-  if (audio) {
-    audio.pause();
-    audio.src = '';
-  }
-  if (trtHls) {
-    trtHls.destroy();
-    trtHls = null;
-  }
-  trtCalıyor = false;
-  console.log('📻 TRT FM yayını durdu');
-}
+///function trtDurdur() {
+  //const audio = document.getElementById('trtRadyoPlayer');
+ // if (audio) {
+ //   audio.pause();
+//    audio.src = '';
+ // }
+ // if (trtHls) {
+// trtHls.destroy();
+  //  trtHls = null;
+//  }
+  //trtCalıyor = false;
+//console.log('📻 TRT FM yayını durdu');
+/}
 
 // --- Zamanlama ---
 // 5 dakika sonra başlat
-setTimeout(trtBaslat, 5 * 60 * 1000);
+//setTimeout(trtBaslat, 5 * 60 * 1000);
 
 // 10 dakika sonra durdur (yani başlatıldıktan 10 dk sonra)
-setTimeout(trtDurdur, (5 + 10) * 60 * 1000);
+//setTimeout(trtDurdur, (5 + 10) * 60 * 1000);
 
 
 
