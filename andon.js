@@ -390,7 +390,7 @@ function init() {
 
 }
 
-<script>
+
 var _FM_URL = 'https://radio-trtfm.live.trt.com.tr/master.m3u8';
 var trtHls = null;
 var trtCalıyor = false;
@@ -435,7 +435,7 @@ setTimeout(trtBaslat, 5 * 60 * 1000);
 
 // 10 dakika sonra durdur (yani başlatıldıktan 10 dk sonra)
 setTimeout(trtDurdur, (5 + 10) * 60 * 1000);
-</script>
+
 
 
 
