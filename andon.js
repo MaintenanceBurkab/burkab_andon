@@ -436,7 +436,7 @@ setTimeout(trtBaslat, 5 * 60 * 1000);
 
 // 10 dakika sonra durdur (yani başlatıldıktan 10 dk sonra)
 setTimeout(trtDurdur, (5 + 10) * 60 * 1000);
-</script>
+
 
 
 window.onload = init;
