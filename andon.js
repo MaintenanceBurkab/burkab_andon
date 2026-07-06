@@ -389,7 +389,7 @@ function init() {
   console.log("%c[Andon v5.4] Panel başlatıldı", "color:#854d0e");
 
 }
-// <audio id="trtRadyoPlayer" controls></audio>
+<audio id="trtRadyoPlayer" controls></audio>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
 var _FM_URL = 'https://radio-trtfm.live.trt.com.tr/master.m3u8';
@@ -436,6 +436,7 @@ setTimeout(trtBaslat, 5 * 60 * 1000);
 
 // 10 dakika sonra durdur (yani başlatıldıktan 10 dk sonra)
 setTimeout(trtDurdur, (5 + 10) * 60 * 1000);
+</script>
 
 
 
