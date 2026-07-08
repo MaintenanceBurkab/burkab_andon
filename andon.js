@@ -1,4 +1,4 @@
-// ==================== ANDON.JS v5.4 (BASE64 SESLİ - TEMİZ) ====================
+// ==================== BURKAB_ ANDON.JS v5.4 (BASE64 SESLİ - TEMİZ) ====================
 
 const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbzjUt47s8EntMJAeT51drfTc2fzIoZSScoXnpbPCizj8ZrP792oBqXD56wQ_TKTGYb3/exec";
 // ==================== SES SİSTEMİ ====================
