@@ -1,6 +1,6 @@
 // ==================== ANDON.JS v5.4 (BASE64 SESLİ - TEMİZ) ====================
 
-const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbxMvsbGS0IrqJo4xScv7BoQRIXUt19gXVX-SqAwoczq0FkPc8gt6M-tqHCBn06N9ms/exec";
+const GAS_ANDON_URL = "https://script.google.com/macros/s/AKfycbwRPDHyAfhz0CI4CeyT6w2VbDkwRXegB1CIK1hJld7p8oDHtQmcFHdqwRS-MJGdII-3/exec";
 // ==================== SES SİSTEMİ ====================
 let sesAktif = false;
 let sonVerimlilikSeviyesi = 0;
@@ -75,7 +75,7 @@ function verimlilikSesiCal(yeniVerim) {
 // ==================== VERİ ÇEKME ====================
 
 function verileriCek() {
-  const url = `${GAS_ANDON_URL}?action=getAndonData&callback=uiGuncelle&_t=${Date.now()}`;
+  const  = `${GAS_ANDON_URL}?action=getAndonData&callback=uiGuncelle&_t=${Date.now()}`;
   const script = document.createElement('script');
   script.src = url;
   script.onerror = () => console.error("Andon verisi çekilemedi");
