@@ -75,7 +75,7 @@ function verimlilikSesiCal(yeniVerim) {
 // ==================== VERİ ÇEKME ====================
 
 function verileriCek() {
-  const  = `${GAS_ANDON_URL}?action=getAndonData&callback=uiGuncelle&_t=${Date.now()}`;
+  const url = `${GAS_ANDON_URL}?action=getAndonData&callback=uiGuncelle&_t=${Date.now()}`;
   const script = document.createElement('script');
   script.src = url;
   script.onerror = () => console.error("Andon verisi çekilemedi");
