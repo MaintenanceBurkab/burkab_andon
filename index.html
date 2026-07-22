@@ -68,8 +68,8 @@
         </div>
 
         <div class="text-center md:text-right">
-          <div id="andonSaat" class="font-mono text-3xl md:text-4xl font-black text-[#f5c400] tabular-nums">10:55:21</div>
-          <div id="andonTarih" class="text-[#888] text-xs md:text-sm tracking-widest">28.06.2026</div>
+          <div id="andonSaat" class="font-mono text-3xl md:text-4xl font-black text-[#f5c400] tabular-nums">--:--:--</div>
+          <div id="andonTarih" class="text-[#888] text-xs md:text-sm tracking-widest">--.--.----</div>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@
           <div class="section-title">VARDİYA HEDEFİ</div>
           <i class="fa-solid fa-bullseye text-2xl text-[#3b82f6]"></i>
         </div>
-        <div><span id="toplamHedef" class="kpi-value text-[#3b82f6]">1240</span> <span class="text-lg text-[#666]">adet</span></div>
+        <div><span id="toplamHedef" class="kpi-value text-[#3b82f6]">—</span> <span class="text-lg text-[#666]">adet</span></div>
       </div>
 
       <div class="industrial-card rounded-3xl p-5 md:p-6">
@@ -92,10 +92,10 @@
           <div class="section-title">GERÇEKLEŞEN</div>
           <i class="fa-solid fa-check-circle text-2xl text-emerald-400"></i>
         </div>
-        <div><span id="toplamGerceklesen" class="kpi-value text-white">0</span> <span class="text-lg text-[#666]">adet</span></div>
+        <div><span id="toplamGerceklesen" class="kpi-value text-white">—</span> <span class="text-lg text-[#666]">adet</span></div>
         <div class="mt-2">
           <div class="h-2 bg-[#222230] rounded-full"><div id="gerceklesenBar" class="h-2 bg-emerald-400 rounded-full transition-all" style="width:0%"></div></div>
-          <div id="gerceklesenYuzdeText" class="text-xs text-emerald-400 text-right mt-0.5">0%</div>
+          <div id="gerceklesenYuzdeText" class="text-xs text-emerald-400 text-right mt-0.5">—</div>
         </div>
       </div>
 
@@ -104,8 +104,8 @@
           <div class="section-title">GENEL VERİMLİLİK</div>
           <i class="fa-solid fa-tachometer-alt text-2xl text-[#f5c400]"></i>
         </div>
-        <div><span id="verimlilikYuzde" class="kpi-value text-[#f5c400]">77</span> <span class="text-2xl text-[#f5c400]">%</span></div>
-        <div class="mt-2"><div class="h-2.5 bg-[#222230] rounded-full"><div id="verimlilikBar" class="h-2.5 bg-[#f5c400] rounded-full transition-all" style="width:77%"></div></div></div>
+        <div><span id="verimlilikYuzde" class="kpi-value text-[#f5c400]">—</span> <span class="text-2xl text-[#f5c400]">%</span></div>
+        <div class="mt-2"><div class="h-2.5 bg-[#222230] rounded-full"><div id="verimlilikBar" class="h-2.5 bg-[#f5c400] rounded-full transition-all" style="width:0%"></div></div></div>
       </div>
     </div>
 
@@ -117,7 +117,7 @@
       </div>
       <div id="takimContainer"
            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-        <!-- andon.js burayı dinamik dolduracak -->
+        <div class="col-span-full text-center text-[#666] py-4">Canlı veriler yükleniyor…</div>
       </div>
     </div>
 
@@ -132,10 +132,10 @@
             <div class="section-title">TOPLAM FIRE</div>
           </div>
           <div class="flex-1 flex flex-col justify-center items-center text-center">
-            <div id="toplamFire" class="text-[3.8rem] font-black text-red-500 tabular-nums leading-none">47</div>
+            <div id="toplamFire" class="text-[3.8rem] font-black text-red-500 tabular-nums leading-none">—</div>
             <div class="text-red-400 text-lg font-semibold -mt-1">ADET</div>
           </div>
-          <div class="pt-3 border-t border-[#222230] text-center text-xs text-red-400">Dün: 32 adet</div>
+          <div id="dunFire" class="pt-3 border-t border-[#222230] text-center text-xs text-[#666]">Veri bekleniyor</div>
         </div>
       </div>
 
@@ -153,11 +153,11 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
               </span>
-              <span>YOK ✓</span>
+              <span>YÜKLENİYOR…</span>
             </div>
           </div>
           <div id="durusListesi" class="p-4 space-y-2 text-sm">
-            <!-- andon.js burayı dinamik dolduracak -->
+            <div class="text-center text-[#666] py-5">Canlı veriler yükleniyor…</div>
           </div>
         </div>
       </div>
